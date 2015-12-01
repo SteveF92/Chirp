@@ -2,8 +2,6 @@
 	"name": "ASP.NET",
 	"private": true,
   "dependencies": {
-    "angular": "~1.4.8",
-    "bootstrap": "~3.3.6",
-    "bootstrap-ui": "~0.14.3"
+    "angular-bootstrap": "~0.14.3"
   }
 }
