@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Chirp - @ViewBag.Title</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div id="sidebar">
+        <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
+        <span>Chase Huxley</span>
+        <ul class="menu">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <div id="wrapper">
+        <div id="main">
+            <div>
+                @RenderBody()
+            </div>
+            <div id="footer">
+                <p> &copy; 2015 Steve Fallon</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
