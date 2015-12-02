@@ -7,6 +7,11 @@ namespace Chirp.Models
     {
         public DbSet <ChirpMessage> ChirpMessages { get; set; }
 
+        public ChirpContext()
+        {
+            Database.EnsureCreated();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connString = Startup.Configuration["Data:ChirpContextConnection"];
