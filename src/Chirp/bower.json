@@ -1,0 +1,8 @@
+{
+	"name": "ASP.NET",
+	"private": true,
+  "dependencies": {
+    "angular-bootstrap": "~0.14.3",
+    "font-awesome": "~4.4.0"
+  }
+}
