@@ -7,18 +7,19 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body ng-app="chirpApp">
     <div id="sidebar">
         <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
         <span>Chase Huxley</span>
         <ul class="nav">
-            <li class="active"><a href="/">Home</a></li>
+            <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
             <li><a asp-controller="App" asp-action="About">About</a></li>
             <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
+            <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
         </ul>
     </div>
 
-    <div id="wrapper">
+    <div id="wrapper" class="col-md-8">
         <div id="main">
             <div>
                 @RenderBody()
