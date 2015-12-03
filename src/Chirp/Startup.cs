@@ -34,10 +34,12 @@ namespace Chirp
             services.AddEntityFramework()
                 .AddNpgsql()
                 .AddDbContext<ChirpContext>();
+
+            services.AddTransient<ChirpContextSeedData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, ChirpContextSeedData seeder)
         {
             app.UseStaticFiles();
 
@@ -49,6 +51,8 @@ namespace Chirp
                     defaults: new { controller = "App", action = "Index" }
                 );
             });
+
+            seeder.EnsureSeedData();
         }
 
         // Entry point for the application.
