@@ -7,15 +7,15 @@ namespace Chirp.Controllers.Web
 {
     public class AppController : Controller
     {
-        private ChirpContext m_context;
+        private IChirpRepository m_repository;
 
-        public AppController(ChirpContext a_context)
+        public AppController(IChirpRepository a_repository)
         {
-            m_context = a_context;
+            m_repository = a_repository;
         }
         public IActionResult Index()
         {
-            var chirpMessages = m_context.ChirpMessages.OrderBy(t => t.PostTime).ToList();
+            var chirpMessages = m_repository.GetAllMessages();
             return View(chirpMessages);
         }
 

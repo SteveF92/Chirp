@@ -36,6 +36,7 @@ namespace Chirp
                 .AddDbContext<ChirpContext>();
 
             services.AddTransient<ChirpContextSeedData>();
+            services.AddScoped<IChirpRepository, ChirpRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
