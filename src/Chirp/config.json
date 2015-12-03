@@ -1,8 +1,0 @@
-{
-  "AppSettings": {
-    "SiteEmailAddress": "elitefusion92@gmail.com"
-  },
-  "Data": {
-    "ChirpContextConnection": "User ID=fallon;Password=rduYQwGBKlVsJsrejxVU;Host=chrippgsql.cldutembgs4w.us-east-1.rds.amazonaws.com;Port=5432;Database=ChirpDB;Pooling=true;Connection Lifetime=0;"
-  }
-}

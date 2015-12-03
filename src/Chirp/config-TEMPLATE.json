@@ -1,0 +1,8 @@
+{
+  "AppSettings": {
+    "SiteEmailAddress": "elitefusion92@gmail.com"
+  },
+  "Data": {
+    "ChirpContextConnection": "User ID={USERNAME};Password={PASSWORD};Host={SERVERURL};Port=5432;Database=ChirpDB;Pooling=true;Connection Lifetime=0;"
+  }
+}
