@@ -233,3 +233,4 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 src/Chirp/wwwroot/lib/
+src/Chirp/config.json
