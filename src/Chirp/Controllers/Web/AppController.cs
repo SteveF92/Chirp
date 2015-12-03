@@ -1,13 +1,22 @@
+using Chirp.Models;
 using Microsoft.AspNet.Mvc;
 using System;
+using System.Linq;
 
 namespace Chirp.Controllers.Web
 {
     public class AppController : Controller
     {
+        private IChirpRepository m_repository;
+
+        public AppController(IChirpRepository a_repository)
+        {
+            m_repository = a_repository;
+        }
         public IActionResult Index()
         {
-            return View();
+            var chirpMessages = m_repository.GetAllMessages();
+            return View(chirpMessages);
         }
 
         public IActionResult About()
