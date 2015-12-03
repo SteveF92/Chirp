@@ -1,18 +1,18 @@
 # README #
 
 ###Chirp###
-
-* Quick summary
 Chirp is an Twitter clone written using ASP.NET 5.
 
-### How do I get set up? ###
+### Necessary Downloads ###
 
-You will need Visual Studio 2015, and ASP.NET 5 RC 1.
-* https://www.visualstudio.com/
-* https://get.asp.net/
+* Visual Studio 2015
+	* https://www.visualstudio.com/
+* ASP.NET 5 RC 1
+	* https://get.asp.net/
+
+### Configuration ###
+You will need to change the config.json file to point to a real postgreSQL database. Use the template provided to get the format correct.
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-Steve Fallon
-sfallon92@gmail.com
+Steve Fallon (sfallon92@gmail.com)
