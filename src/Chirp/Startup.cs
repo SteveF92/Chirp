@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Chirp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Chirp
 {
@@ -31,6 +32,8 @@ namespace Chirp
         {
             services.AddMvc();
 
+            services.AddLogging();
+
             services.AddEntityFramework()
                 .AddNpgsql()
                 .AddDbContext<ChirpContext>();
@@ -40,8 +43,9 @@ namespace Chirp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, ChirpContextSeedData seeder)
+        public void Configure(IApplicationBuilder app, ChirpContextSeedData seeder, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddDebug(LogLevel.Information);
             app.UseStaticFiles();
 
             app.UseMvc(Configure =>

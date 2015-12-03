@@ -12,7 +12,8 @@
     "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-rc1-final",
     "EntityFramework.Core": "7.0.0-rc1-final",
     "EntityFramework7.Npgsql": "3.1.0-rc1-1",
-    "EntityFramework.Commands": "7.0.0-rc1-final"
+    "EntityFramework.Commands": "7.0.0-rc1-final",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final"
   },
 
   "commands": {
