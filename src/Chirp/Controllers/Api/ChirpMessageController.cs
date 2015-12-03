@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Chirp.Controllers.Api
 {
+    [Route("api/chirpmessages")]
     public class ChirpMessageController : Controller
     {
         private IChirpRepository m_repository;
@@ -15,11 +16,17 @@ namespace Chirp.Controllers.Api
         {
             m_repository = a_repository;
         }
-        [HttpGet("api/chripmessages")]
+        [HttpGet("")]
         public JsonResult Get()
         {
             var results = m_repository.GetAllMessages();
             return Json(results);
+        }
+
+        [HttpPost("")]
+        public JsonResult Post([FromBody]ChirpMessage message)
+        {
+            return Json(true);
         }
     }
 }
