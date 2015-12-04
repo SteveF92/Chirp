@@ -1,8 +1,10 @@
 ﻿using Chirp.Models;
+using Chirp.ViewModels;
 using Microsoft.AspNet.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Chirp.Controllers.Api
@@ -24,9 +26,16 @@ namespace Chirp.Controllers.Api
         }
 
         [HttpPost("")]
-        public JsonResult Post([FromBody]ChirpMessage message)
+        public JsonResult Post([FromBody]ChirpMessageViewModel message)
         {
-            return Json(true);
+            if (ModelState.IsValid)
+            {
+                Response.StatusCode = (int) HttpStatusCode.Created;
+                return Json(true);
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { Message = "Failed", ModelState = ModelState });
         }
     }
 }
