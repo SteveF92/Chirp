@@ -17,7 +17,7 @@ namespace Chirp.Controllers.Api
         private ILogger m_logger;
         private IChirpRepository m_repository;
 
-        public ChirpMessageController(IChirpRepository a_repository, ILogger a_logger)
+        public ChirpMessageController(IChirpRepository a_repository, ILogger<ChirpMessageController> a_logger)
         {
             m_repository = a_repository;
             m_logger = a_logger;
