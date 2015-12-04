@@ -17,6 +17,11 @@ namespace Chirp.Models
             m_logger = a_logger;
         }
 
+        public void AddMessage(ChirpMessage newMessage)
+        {
+            m_context.Add(newMessage);
+        }
+
         public IEnumerable<ChirpMessage> GetAllMessages()
         {
             try
@@ -42,6 +47,11 @@ namespace Chirp.Models
                 m_logger.LogError("Could not get trips from database", ex);
                 return null;
             }
+        }
+
+        public bool SaveAll()
+        {
+            return (m_context.SaveChanges() > 0);
         }
     }
 }

@@ -40,9 +40,14 @@ namespace Chirp.Controllers.Api
                     var newMessage = Mapper.Map<ChirpMessage>(vm);
 
                     //Save to the database
+                    m_logger.LogInformation("Attemting to save a new trip");
+                    m_repository.AddMessage(newMessage);
 
-                    Response.StatusCode = (int)HttpStatusCode.Created;
-                    return Json(Mapper.Map<ChirpMessageViewModel>(newMessage));
+                    if (m_repository.SaveAll())
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.Created;
+                        return Json(Mapper.Map<ChirpMessageViewModel>(newMessage));
+                    }
                 }
 
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
