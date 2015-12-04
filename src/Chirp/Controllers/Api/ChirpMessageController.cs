@@ -2,6 +2,7 @@
 using Chirp.Models;
 using Chirp.ViewModels;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,15 @@ namespace Chirp.Controllers.Api
     [Route("api/chirpmessages")]
     public class ChirpMessageController : Controller
     {
+        private ILogger m_logger;
         private IChirpRepository m_repository;
 
-        public ChirpMessageController(IChirpRepository a_repository)
+        public ChirpMessageController(IChirpRepository a_repository, ILogger a_logger)
         {
             m_repository = a_repository;
+            m_logger = a_logger;
         }
+
         [HttpGet("")]
         public JsonResult Get()
         {
@@ -46,6 +50,7 @@ namespace Chirp.Controllers.Api
             }
             catch (Exception ex)
             {
+                m_logger.LogError("Failed to save new trip", ex);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { Message = ex.Message});
             }
