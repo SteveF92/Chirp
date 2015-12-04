@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using Chirp.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Chirp
 {
@@ -39,6 +40,14 @@ namespace Chirp
                     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
+            services.AddIdentity<ChirpUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            })
+            .AddEntityFrameworkStores<ChirpContext>();
+
             services.AddLogging();
 
             services.AddEntityFramework()
@@ -53,7 +62,10 @@ namespace Chirp
         public async void Configure(IApplicationBuilder app, ChirpContextSeedData seeder, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddDebug(LogLevel.Information);
+
             app.UseStaticFiles();
+
+            app.UseIdentity();
 
             Mapper.Initialize(config =>
             {
