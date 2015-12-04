@@ -1,4 +1,5 @@
-﻿using Chirp.Models;
+﻿using AutoMapper;
+using Chirp.Models;
 using Chirp.ViewModels;
 using Microsoft.AspNet.Mvc;
 using System;
@@ -21,21 +22,34 @@ namespace Chirp.Controllers.Api
         [HttpGet("")]
         public JsonResult Get()
         {
-            var results = m_repository.GetAllMessages();
+            var results = Mapper.Map<IEnumerable<ChirpMessageViewModel>>(m_repository.GetAllMessages());
             return Json(results);
         }
 
         [HttpPost("")]
-        public JsonResult Post([FromBody]ChirpMessageViewModel message)
+        public JsonResult Post([FromBody]ChirpMessageViewModel vm)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Response.StatusCode = (int) HttpStatusCode.Created;
-                return Json(true);
-            }
+                if (ModelState.IsValid)
+                {
+                    var newMessage = Mapper.Map<ChirpMessage>(vm);
 
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return Json(new { Message = "Failed", ModelState = ModelState });
+                    //Save to the database
+
+                    Response.StatusCode = (int)HttpStatusCode.Created;
+                    return Json(Mapper.Map<ChirpMessageViewModel>(newMessage));
+                }
+
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = "Failed", ModelState = ModelState });
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = ex.Message});
+            }
+            
         }
     }
 }

@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using AutoMapper;
+using Chirp.ViewModels;
 
 namespace Chirp
 {
@@ -52,6 +54,11 @@ namespace Chirp
         {
             loggerFactory.AddDebug(LogLevel.Information);
             app.UseStaticFiles();
+
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<ChirpMessage, ChirpMessageViewModel>().ReverseMap();
+            });
 
             app.UseMvc(Configure =>
             {
