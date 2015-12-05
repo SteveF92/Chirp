@@ -9,14 +9,21 @@
 </head>
 <body ng-app="chirpApp">
     <div id="sidebar">
-        <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
-        <span>Chase Huxley</span>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
+            <span id="username">@User.Identity.Name</span>
+        }
+        
         <ul class="nav">
             <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
             <li><a asp-controller="App" asp-action="Chirps">Chirp Feed</a></li>
             <li><a asp-controller="App" asp-action="About">About</a></li>
             <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
-            <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
+            }
         </ul>
     </div>
 
