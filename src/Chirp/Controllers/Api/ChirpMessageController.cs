@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Chirp.Models;
 using Chirp.ViewModels;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Chirp.Controllers.Api
 {
+    [Authorize]
     [Route("api/chirpmessages")]
     public class ChirpMessageController : Controller
     {

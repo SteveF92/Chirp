@@ -1,4 +1,5 @@
 using Chirp.Models;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using System;
 using System.Linq;
@@ -14,6 +15,12 @@ namespace Chirp.Controllers.Web
             m_repository = a_repository;
         }
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Chirps()
         {
             var chirpMessages = m_repository.GetAllMessages();
             return View(chirpMessages);

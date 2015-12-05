@@ -1,9 +1,10 @@
 using System;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
 namespace Chirp.Models
 {
-    public class ChirpContext : DbContext
+    public class ChirpContext : IdentityDbContext<ChirpUser>
     {
         public DbSet <ChirpMessage> ChirpMessages { get; set; }
 
