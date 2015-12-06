@@ -36,11 +36,11 @@ namespace Chirp.Models
             
         }
 
-        public IEnumerable<ChirpMessage> GetAllMessagesByUserId(int a_userId)
+        public IEnumerable<ChirpMessage> GetAllMessagesByUserId(string a_userId)
         {
             try
             {
-                return m_context.ChirpMessages.Where(t => (t.UserId == a_userId)).OrderBy(t => t.PostTime).ToList();
+                return m_context.ChirpMessages.Where(t => (t.User.Id == a_userId)).OrderBy(t => t.PostTime).ToList();
             }
             catch (Exception ex)
             {
