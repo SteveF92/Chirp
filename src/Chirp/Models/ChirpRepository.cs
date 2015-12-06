@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.Entity;
+
 
 namespace Chirp.Models
 {
@@ -26,7 +28,7 @@ namespace Chirp.Models
         {
             try
             {
-                return m_context.ChirpMessages.OrderBy(t => t.PostTime).ToList();
+                return m_context.ChirpMessages.Include(t => t.User).OrderBy(t => t.PostTime).ToList();
             }
             catch (Exception ex)
             {
