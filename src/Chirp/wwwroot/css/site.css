@@ -70,9 +70,9 @@ input[type=text], input[type=password], textarea {
 }
 
 .odd {
-	background-color: #f2f9ff;
+	background-color: #c4e1fa;
 	
 }
 .even {
-	background-color: #eceff3;
+	background-color: #daebf8;
 }
