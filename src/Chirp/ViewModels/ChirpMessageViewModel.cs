@@ -14,5 +14,6 @@ namespace Chirp.ViewModels
         [StringLength(255, MinimumLength = 5)]
         public string Message { get; set; }
         public DateTime PostTime { get; set; }
+        public ChirpUserViewModel User { get; set; }
     }
 }

@@ -30,6 +30,8 @@ namespace Chirp.Models
                 var userRes = await m_userManager.CreateAsync(newUser, "Myp@55word");
             }
 
+            m_context.SaveChanges();
+
             if (!m_context.ChirpMessages.Any())
             {
                 //Add new data
