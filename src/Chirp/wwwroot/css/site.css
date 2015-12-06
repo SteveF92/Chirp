@@ -23,7 +23,6 @@ input[type=text], input[type=password], textarea {
     margin: 0;
 }
 
-
 #sidebar{
     background: #2a2c36;
     color: #eee;
@@ -37,4 +36,43 @@ input[type=text], input[type=password], textarea {
 
 #wrapper{
     margin: 0 0 0 250px;
+}
+
+#chirp-form {
+    background-color: #68d8f2;
+    border: solid medium;
+    border-color: #02c9f6;
+
+    padding: 4px;
+    margin: 0;
+}
+
+#post-stream {
+    background-color: #e2eff2;
+    border: solid medium;
+    border-color: #bce7f1;
+
+    padding: 4px;
+    margin: 0;
+}
+
+.submit-btn {
+	background-color: #b1dbff;
+	margin: 10px 0 10px 0;
+}
+
+.post {
+	padding: 10px;
+	margin-bottom: 5px;
+	border-radius: 5px;
+    border: thin;
+    border-color: #82caf3;
+}
+
+.odd {
+	background-color: #c4e1fa;
+	
+}
+.even {
+	background-color: #daebf8;
 }
