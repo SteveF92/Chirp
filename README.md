@@ -3,6 +3,10 @@
 ###Chirp###
 Chirp is an Twitter clone written using ASP.NET 5.
 
+* You can view this site at:
+    * http://chirpchirp.azurewebsites.net/
+* Since signing up isn't implemented yet, the only user is a fake user (fake email)
+    * You can find it in ChirpContextSeedData.cs
 ### Necessary Downloads ###
 
 * Visual Studio 2015
