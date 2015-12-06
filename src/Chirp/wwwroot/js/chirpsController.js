@@ -20,7 +20,12 @@
         vm.newChirpMessage = {};
 
         vm.addChirpMessage = function () {
-            alert(vm.newChirpMessage.message);
+            vm.chirpMessages.push({
+                message: vm.newChirpMessage.message,
+                username: "PERSON",
+                postTime: new Date()
+            });
+            vm.newChirpMessage = {};
         };
     }
 })();
