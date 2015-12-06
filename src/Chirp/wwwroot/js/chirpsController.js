@@ -7,7 +7,15 @@
 
     function chirpsController() {
         var vm = this;
-        vm.name = "Steve";
+        vm.chirpMessages = [{
+            message: "WOOP",
+            username: "Steve",
+            postTime: new Date()
+        }, {
+            message: "THIS IS IT",
+            username: "Shawn",
+            postTime: new Date()
+        }];
 
     }
 })();
