@@ -9,11 +9,15 @@
         var vm = this;
         vm.chirpMessages = [{
             message: "WOOP",
-            username: "Steve",
+            user: {
+                userName: "Steve"
+            },
             postTime: new Date()
         }, {
             message: "THIS IS IT",
-            username: "Shawn",
+            user: {
+                userName: "Shawn"
+            },
             postTime: new Date()
         }];
 
@@ -22,7 +26,9 @@
         vm.addChirpMessage = function () {
             vm.chirpMessages.push({
                 message: vm.newChirpMessage.message,
-                username: "PERSON",
+                user: {
+                    userName: "PERSON"
+                },
                 postTime: new Date()
             });
             vm.newChirpMessage = {};

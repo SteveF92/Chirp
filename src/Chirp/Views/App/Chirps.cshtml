@@ -24,7 +24,7 @@
         <div id="post-stream" class="container-fluid">
             <div class='post' ng-repeat="chirpMessage in vm.chirpMessages | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
                 <p>{{chirpMessage.message}}</p>
-                <small>Posted by @@{{chirpMessage.username}}</small>
+                <small>Posted by @@{{chirpMessage.user.userName}}</small>
                 <small class="pull-right">{{chirpMessage.postTime | date:"h:mma 'on' MMM d, y"}}
             </div>
         </div>
