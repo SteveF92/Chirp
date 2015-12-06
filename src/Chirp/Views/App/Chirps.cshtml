@@ -8,20 +8,20 @@
     <script src="~/js/chirpsController.js"></script>
 }
 
-
-
 <div class="row" ng-app="app-chirps">
     <div class="col-md-12" ng-controller="chirpsController as vm">
-        <div id="chirp-form">
-            <form ng-Submit="vm.addChirpMessage()">
+        <div id="chirp-form" class="container-fluid">
+            <form novalidate name="newChirpMessageForm" ng-Submit="vm.addChirpMessage()">
                 <h4> @@@User.Identity.Name says </h4>
-                <textarea required class="form-control" maxLength="200" rows="3" placeholder="Say something" ng-model="vm.newChirpMessage.message"></textarea>
-
-                <input class="btn submit-btn pull-right" type="submit" value="Chirp!" />
+                <div class="form-group">
+                    <textarea id="chirpMessageText" class="form-control " maxLength="200" rows="3" placeholder="Say something"
+                              ng-model="vm.newChirpMessage.message" required></textarea>
+                </div>
+                <input class="btn submit-btn pull-right" type="submit" value="Chirp!" ng-disabled="newChirpMessageForm.$invalid" />
             </form>
         </div>
         <h4>Chirp Feed</h4> 
-        <div id="post-stream">
+        <div id="post-stream" class="container-fluid">
             <div class='post' ng-repeat="chirpMessage in vm.chirpMessages | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
                 <p>{{chirpMessage.message}}</p>
                 <small>Posted by @@{{chirpMessage.username}}</small>
