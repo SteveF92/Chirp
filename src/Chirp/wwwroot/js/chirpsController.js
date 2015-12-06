@@ -5,7 +5,7 @@
     angular.module("app-chirps")
         .controller("chirpsController", chirpsController);
 
-    function chirpsController() {
+    function chirpsController($http) {
         var vm = this;
         vm.chirpMessages = [{
             message: "WOOP",
@@ -22,6 +22,22 @@
         }];
 
         vm.newChirpMessage = {};
+
+        vm.errorMessage = "";
+        vm.isBusy = true;
+
+        $http.get("/api/chirpmessages")
+            .then(function (response) {
+                //Success
+                angular.copy(response.data, vm.chirpMessages);
+            }, function (error) {
+                //Failure
+                vm.errorMessage = "Failed to get Chirps: " + error;
+            })
+            .finally(function () {
+                vm.isBusy = false;
+            });
+
 
         vm.addChirpMessage = function () {
             vm.chirpMessages.push({
