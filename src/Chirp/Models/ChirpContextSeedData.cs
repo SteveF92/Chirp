@@ -37,7 +37,7 @@ namespace Chirp.Models
                 {
                     Message = "First message! ChirpChirp!",
                     PostTime = DateTime.UtcNow,
-                    UserId = 12
+                    User = await m_userManager.FindByEmailAsync("chase.huxley@chirp.com")
                 };
 
                 m_context.ChirpMessages.Add(chirpMessage);
