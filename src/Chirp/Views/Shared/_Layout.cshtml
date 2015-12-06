@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body ng-app="chirpApp">
+<body>
     <div id="sidebar">
         @if (User.Identity.IsAuthenticated)
         {
@@ -37,5 +37,6 @@
             </div>
         </div>
     </div>
+    @RenderSection("Scripts", false)
 </body>
 </html>
