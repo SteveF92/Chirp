@@ -8,16 +8,19 @@
     <script src="~/js/chirpsController.js"></script>
 }
 
-<h1>Chirp Feed</h1>
 
-<div class="clearfix" ng-app="app-chirps">
-    <div ng-controller="chirpsController as vm">
-        <h5>{{vm.name}}</h5>
-        <form ng-show="authenticated" ng-Submit="post()">
-            <h4>{{current_user}} says </h4>
-            <textarea required class="form-control" maxLength="200" rows="3" placeholder="Say something" ng-model="newPost.text"></textarea>
-            <input class="btn submit-btn pull-right" type="submit" value="Chirp!" />
-        </form>
+
+<div class="row" ng-app="app-chirps">
+    <div class="col-md-12" ng-controller="chirpsController as vm">
+        <div id="chirp-form">
+            <form ng-Submit="post()">
+                <h4> @@@User.Identity.Name says </h4>
+                <textarea required class="form-control" maxLength="200" rows="3" placeholder="Say something" ng-model="newPost.text"></textarea>
+
+                <input class="btn submit-btn pull-right" type="submit" value="Chirp!" />
+            </form>
+        </div>
+        <h4>Chirp Feed</h4> 
         <div id="post-stream">
             <div class='post' ng-repeat="chirpMessage in vm.chirpMessages | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
                 <p>{{chirpMessage.message}}</p>
