@@ -40,14 +40,34 @@
 
 
         vm.addChirpMessage = function () {
-            vm.chirpMessages.push({
-                message: vm.newChirpMessage.message,
-                user: {
-                    userName: "PERSON"
-                },
-                postTime: new Date()
+            vm.errorMessage = "";
+            vm.isBusy = true;
+            vm.newChirpMessage.postTime = new Date();
+
+            $http.get("/auth/currentuser")
+            .then(function (response) {
+                //Success
+                vm.newChirpMessage.user = response.data;
+
+                $http.post("/api/chirpmessages", vm.newChirpMessage)
+                    .then(function (response) {
+                        //Success
+                        vm.chirpMessages.push(response.data);
+                        vm.newChirpMessage = {};
+                    }, function (error) {
+                        //Failure
+                        vm.errorMessage = "Failed to get Chirps: " + error;
+                    })
+                    .finally(function () {
+                        vm.isBusy = false;
+                    });
+            }, function (error) {
+                //Failure
+                vm.errorMessage = "Failed to get current user: " + error;
+            })
+            .finally(function () {
+                vm.isBusy = false;
             });
-            vm.newChirpMessage = {};
         };
     }
 })();
