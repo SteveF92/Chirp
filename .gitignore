@@ -234,3 +234,4 @@ _Pvt_Extensions
 .fake/
 src/Chirp/wwwroot/lib/
 src/Chirp/config.json
+PublishScripts/
