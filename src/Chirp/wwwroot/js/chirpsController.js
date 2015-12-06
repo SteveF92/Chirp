@@ -17,5 +17,10 @@
             postTime: new Date()
         }];
 
+        vm.newChirpMessage = {};
+
+        vm.addChirpMessage = function () {
+            alert(vm.newChirpMessage.message);
+        };
     }
 })();
