@@ -7,6 +7,7 @@ namespace Chirp.ViewModels
 {
     public class ChirpUserViewModel
     {
+        public string Id;
         public string UserName;
     }
 }

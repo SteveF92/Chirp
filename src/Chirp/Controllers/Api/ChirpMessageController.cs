@@ -42,7 +42,7 @@ namespace Chirp.Controllers.Api
                     var newMessage = Mapper.Map<ChirpMessage>(vm);
 
                     //Save to the database
-                    m_logger.LogInformation("Attemting to save a new trip");
+                    m_logger.LogInformation("Attemting to save a new message");
                     m_repository.AddMessage(newMessage);
 
                     if (m_repository.SaveAll())
@@ -57,7 +57,7 @@ namespace Chirp.Controllers.Api
             }
             catch (Exception ex)
             {
-                m_logger.LogError("Failed to save new trip", ex);
+                m_logger.LogError("Failed to save new message", ex);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { Message = ex.Message});
             }
