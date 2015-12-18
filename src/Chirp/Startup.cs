@@ -51,7 +51,13 @@ namespace Chirp
             services.AddIdentity<ChirpUser, IdentityRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
+
                 config.Password.RequiredLength = 8;
+                config.Password.RequireLowercase = false;
+                config.Password.RequireNonLetterOrDigit = false;
+                config.Password.RequireDigit = false;
+                config.Password.RequireUppercase = false;
+
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
                 config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
                 {
