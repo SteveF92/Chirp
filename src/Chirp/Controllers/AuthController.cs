@@ -33,7 +33,18 @@ namespace Chirp.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Chirps", "App");
+                return RedirectToAction("Index", "App");
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Signup()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "App");
             }
 
             return View();
