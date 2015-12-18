@@ -14,13 +14,9 @@ namespace Chirp.Controllers.Web
         {
             m_repository = a_repository;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [Authorize]
-        public IActionResult Chirps()
+        public IActionResult Index()
         {
             var chirpMessages = m_repository.GetAllMessages();
             return View(chirpMessages);
