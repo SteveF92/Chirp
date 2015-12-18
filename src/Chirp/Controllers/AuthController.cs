@@ -106,7 +106,11 @@ namespace Chirp.Controllers
 
                 if (signUpResult.Succeeded)
                 {
-                    RedirectToAction("Index", "App");
+                    var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
+                    if (signInResult.Succeeded)
+                    {
+                        return RedirectToAction("Index", "App");
+                    }
                 }
                 else
                 {
