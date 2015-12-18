@@ -39,17 +39,6 @@ namespace Chirp.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Signup()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "App");
-            }
-
-            return View();
-        }
-
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel vm, string returnUrl)
         {
@@ -76,6 +65,58 @@ namespace Chirp.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Signup()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "App");
+            }
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> Signup(SignupViewModel vm, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                if (vm.Password != vm.ConfirmPassword)
+                {
+                    ModelState.AddModelError("", "Passwords must match");
+                    return View();
+                }
+
+                var userFound = await m_userManager.FindByNameAsync(vm.Username);
+                if (userFound != null)
+                {
+                    ModelState.AddModelError("", "Username taken");
+                    return View();
+                }
+
+                var newUser = new ChirpUser()
+                {
+                    UserName = vm.Username,
+                    Email = vm.Email
+                };
+
+                var signUpResult = await m_userManager.CreateAsync(newUser, vm.Password);
+
+                if (signUpResult.Succeeded)
+                {
+                    RedirectToAction("Index", "App");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Username or password incorrect");
+                }
+            }
+
+            return View();
+        }
+
 
         [HttpGet]
         public async Task<JsonResult> CurrentUser()
