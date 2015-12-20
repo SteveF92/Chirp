@@ -7,7 +7,7 @@
 
     function chirpsController($http) {
         var vm = this;
-        vm.chirpMessages = [{
+        vm.chirpPosts = [{
             message: "WOOP",
             user: {
                 userName: "Steve"
@@ -21,15 +21,15 @@
             postTime: new Date()
         }];
 
-        vm.newChirpMessage = {};
+        vm.newChirpPost = {};
 
         vm.errorMessage = "";
         vm.isBusy = true;
 
-        $http.get("/api/chirpmessages")
+        $http.get("/api/chirpposts")
             .then(function (response) {
                 //Success
-                angular.copy(response.data, vm.chirpMessages);
+                angular.copy(response.data, vm.chirpPosts);
             }, function (error) {
                 //Failure
                 vm.errorMessage = "Failed to get Chirps: " + error;
@@ -39,21 +39,21 @@
             });
 
 
-        vm.addChirpMessage = function () {
+        vm.addChirpPost = function () {
             vm.errorMessage = "";
             vm.isBusy = true;
-            vm.newChirpMessage.postTime = new Date();
+            vm.newChirpPost.postTime = new Date();
 
             $http.get("/auth/currentuser")
             .then(function (response) {
                 //Success
-                vm.newChirpMessage.user = response.data;
+                vm.newChirpPost.user = response.data;
 
-                $http.post("/api/chirpmessages", vm.newChirpMessage)
+                $http.post("/api/chirpposts", vm.newChirpPost)
                     .then(function (response) {
                         //Success
-                        vm.chirpMessages.push(response.data);
-                        vm.newChirpMessage = {};
+                        vm.chirpPosts.push(response.data);
+                        vm.newChirp = {};
                     }, function (error) {
                         //Failure
                         vm.errorMessage = "Failed to get Chirps: " + error;

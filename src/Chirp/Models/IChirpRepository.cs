@@ -4,9 +4,9 @@ namespace Chirp.Models
 {
     public interface IChirpRepository
     {
-        IEnumerable<ChirpMessage> GetAllMessages();
-        IEnumerable<ChirpMessage> GetAllMessagesByUserId(string a_userId);
-        void AddMessage(ChirpMessage newMessage);
+        IEnumerable<ChirpPost> GetAllPosts();
+        IEnumerable<ChirpPost> GetAllPostsByUserId(string a_userId);
+        void AddPost(ChirpPost newMessage);
         bool SaveAll();
     }
 }

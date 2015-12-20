@@ -6,7 +6,7 @@ namespace Chirp.Models
 {
     public class ChirpContext : IdentityDbContext<ChirpUser>
     {
-        public DbSet <ChirpMessage> ChirpMessages { get; set; }
+        public DbSet <ChirpPost> ChirpPosts { get; set; }
 
         public ChirpContext()
         {

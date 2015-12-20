@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chirp.ViewModels
 {
-    public class ChirpMessageViewModel
+    public class ChirpPostViewModel
     {
         public int Id { get; set; }
 

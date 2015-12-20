@@ -98,7 +98,7 @@ namespace Chirp
 
             Mapper.Initialize(config =>
             {
-                config.CreateMap<ChirpMessage, ChirpMessageViewModel>().ReverseMap();
+                config.CreateMap<ChirpPost, ChirpPostViewModel>().ReverseMap();
                 config.CreateMap<ChirpUser, ChirpUserViewModel>().ReverseMap();
             });
 

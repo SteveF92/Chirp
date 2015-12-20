@@ -5,6 +5,6 @@ namespace Chirp.Models
 {
     public class ChirpUser : IdentityUser
     {
-        public List<ChirpMessage> ChirpMessages;
+        public List<ChirpPost> ChirpPosts;
     }
 }

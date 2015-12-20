@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 namespace Chirp.Controllers.Api
 {
     [Authorize]
-    [Route("api/chirpmessages")]
-    public class ChirpMessageController : Controller
+    [Route("api/chirpposts")]
+    public class ChirpPostController : Controller
     {
         private ILogger m_logger;
         private IChirpRepository m_repository;
 
-        public ChirpMessageController(IChirpRepository a_repository, ILogger<ChirpMessageController> a_logger)
+        public ChirpPostController(IChirpRepository a_repository, ILogger<ChirpPostController> a_logger)
         {
             m_repository = a_repository;
             m_logger = a_logger;
@@ -28,27 +28,27 @@ namespace Chirp.Controllers.Api
         [HttpGet("")]
         public JsonResult Get()
         {
-            var results = Mapper.Map<IEnumerable<ChirpMessageViewModel>>(m_repository.GetAllMessages());
+            var results = Mapper.Map<IEnumerable<ChirpPostViewModel>>(m_repository.GetAllPosts());
             return Json(results);
         }
 
         [HttpPost("")]
-        public JsonResult Post([FromBody]ChirpMessageViewModel vm)
+        public JsonResult Post([FromBody]ChirpPostViewModel vm)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var newMessage = Mapper.Map<ChirpMessage>(vm);
+                    var newPost = Mapper.Map<ChirpPost>(vm);
 
                     //Save to the database
-                    m_logger.LogInformation("Attemting to save a new message");
-                    m_repository.AddMessage(newMessage);
+                    m_logger.LogInformation("Attemting to save a new post");
+                    m_repository.AddPost(newPost);
 
                     if (m_repository.SaveAll())
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(Mapper.Map<ChirpMessageViewModel>(newMessage));
+                        return Json(Mapper.Map<ChirpPostViewModel>(newPost));
                     }
                 }
 
@@ -57,7 +57,7 @@ namespace Chirp.Controllers.Api
             }
             catch (Exception ex)
             {
-                m_logger.LogError("Failed to save new message", ex);
+                m_logger.LogError("Failed to save new post", ex);
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 return Json(new { Message = ex.Message});
             }

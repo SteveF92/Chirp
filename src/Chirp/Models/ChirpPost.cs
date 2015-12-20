@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Chirp.Models
 {
-    public class ChirpMessage
+    public class ChirpPost
     {
         public int Id { get; set; }
         public string Message { get; set; }

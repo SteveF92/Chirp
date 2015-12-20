@@ -32,17 +32,17 @@ namespace Chirp.Models
 
             m_context.SaveChanges();
 
-            if (!m_context.ChirpMessages.Any())
+            if (!m_context.ChirpPosts.Any())
             {
                 //Add new data
-                var chirpMessage = new ChirpMessage()
+                var chirpPost = new ChirpPost()
                 {
                     Message = "First message! ChirpChirp!",
                     PostTime = DateTime.UtcNow,
                     User = await m_userManager.FindByEmailAsync("chase.huxley@chirp.com")
                 };
 
-                m_context.ChirpMessages.Add(chirpMessage);
+                m_context.ChirpPosts.Add(chirpPost);
 
                 m_context.SaveChanges();
             }

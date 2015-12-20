@@ -16,7 +16,7 @@ namespace Chirp.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
 
-            modelBuilder.Entity("Chirp.Models.ChirpMessage", b =>
+            modelBuilder.Entity("Chirp.Models.ChirpPost", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
