@@ -19,16 +19,16 @@ namespace Chirp.Models
             m_logger = a_logger;
         }
 
-        public void AddMessage(ChirpMessage newMessage)
+        public void AddPost(ChirpPost newPost)
         {
-            m_context.Add(newMessage);
+            m_context.Add(newPost);
         }
 
-        public IEnumerable<ChirpMessage> GetAllMessages()
+        public IEnumerable<ChirpPost> GetAllPosts()
         {
             try
             {
-                return m_context.ChirpMessages.Include(t => t.User).OrderBy(t => t.PostTime).ToList();
+                return m_context.ChirpPosts.Include(t => t.User).OrderBy(t => t.PostTime).ToList();
             }
             catch (Exception ex)
             {
@@ -38,11 +38,11 @@ namespace Chirp.Models
             
         }
 
-        public IEnumerable<ChirpMessage> GetAllMessagesByUserId(string a_userId)
+        public IEnumerable<ChirpPost> GetAllPostsByUserId(string a_userId)
         {
             try
             {
-                return m_context.ChirpMessages.Where(t => (t.User.Id == a_userId)).OrderBy(t => t.PostTime).ToList();
+                return m_context.ChirpPosts.Where(t => (t.User.Id == a_userId)).OrderBy(t => t.PostTime).ToList();
             }
             catch (Exception ex)
             {

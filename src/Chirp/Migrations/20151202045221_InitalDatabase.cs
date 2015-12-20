@@ -9,7 +9,7 @@ namespace Chirp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ChirpMessage",
+                name: "ChirpPost",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -20,13 +20,13 @@ namespace Chirp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ChirpMessage", x => x.Id);
+                    table.PrimaryKey("PK_ChirpPost", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable("ChirpMessage");
+            migrationBuilder.DropTable("ChirpPost");
         }
     }
 }
