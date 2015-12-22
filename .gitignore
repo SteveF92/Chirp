@@ -235,3 +235,4 @@ _Pvt_Extensions
 src/Chirp/wwwroot/lib/
 src/Chirp/config.json
 PublishScripts/
+logs/
