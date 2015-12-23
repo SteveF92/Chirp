@@ -15,7 +15,8 @@
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "AutoMapper": "4.0.4",
-    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+    "Angular.UI.Bootstrap": "0.14.3"
   },
 
   "commands": {

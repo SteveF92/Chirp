@@ -236,3 +236,4 @@ src/Chirp/wwwroot/lib/
 src/Chirp/config.json
 PublishScripts/
 logs/
+src/Chirp/bower_components/

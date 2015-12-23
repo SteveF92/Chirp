@@ -1,8 +1,9 @@
 {
-	"name": "ASP.NET",
-	"private": true,
+  "name": "ASP.NET",
+  "private": true,
   "dependencies": {
-    "angular-bootstrap": "~0.14.3",
-    "font-awesome": "~4.4.0"
+    "bootstrap": "3.3.5",
+    "angular": "~1.4.8",
+    "font-awesome": "~4.5.0"
   }
 }
