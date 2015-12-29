@@ -41,6 +41,7 @@
                     .then(function (response) {
                         //Success
                         vm.chirpPosts.push(response.data);
+                        vm.newChirpPost.message = "";
                     }, function (error) {
                         //Failure
                         vm.errorMessage = "Failed to get Chirps: " + error;
