@@ -32,7 +32,7 @@ namespace Chirp.Models
             }
             catch (Exception ex)
             {
-                m_logger.LogError("Could not get trips from database", ex);
+                m_logger.LogError("Could not get chirps from database", ex);
                 return null;
             }
             
