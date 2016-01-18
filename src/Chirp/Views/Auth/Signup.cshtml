@@ -3,28 +3,42 @@
     ViewBag.Title = "Signup";
 }
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
+@section Scripts{
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/app-signup.js"></script>
+    <script src="~/js/signupController.js"></script>
+}
+
+<div class="row" ng-app="app-signup">
+    <div ng-controller="signupController as vm" class="col-md-6 col-md-offset-3">
         <h3>Signup</h3>
-        <form method="post">
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
+        <div class="text-danger" ng-show="vm.ErrorMessage"> {{vm.errorMessage}} </div>
+
+        <form novalidate name="form" ng-submit="vm.signup()" role="form">
+            <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control" ng-model="vm.newUser.Email" required />
+                <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
             </div>
-            <div class="form-group">
-                <label asp-for="Username"></label>
-                <input asp-for="Username" class="form-control" />
+            <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="form-control" ng-model="vm.newUser.Username" required />
+                <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
             </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input type="password" asp-for="Password" class="form-control" />
+
+            <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control" ng-model="vm.newUser.Password" required />
+                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
             </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword">Confirm Password</label>
-                <input type="password" asp-for="ConfirmPassword" class="form-control" />
+            <div class="form-group" ng-class="{ 'has-error': form.confirmPassword.$dirty && form.confirmPassword.$error.required }">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" ng-model="vm.newUser.ConfirmPassword" required />
+                <span ng-show="form.confirmPassword.$dirty && form.confirmPassword.$error.required" class="help-block">Please type your password again</span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Signup" class="btn btn-success" />
+            <div class="form-actions">
+                <button type="submit" ng-disabled="form.$invalid || vm.isBusy" class="btn btn-primary">Signup</button>
+                <div ng-show="vm.isBusy" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
             </div>
         </form>
         <a asp-controller="Auth" asp-action="Login">Login</a>
