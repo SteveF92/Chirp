@@ -19,8 +19,9 @@
             <wait-cursor display-when="vm.isBusy"></wait-cursor>
             <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
                 <label for="email">Email</label>
-                <input type="text" name="email" id="email" class="form-control" ng-model="vm.newUser.Email" required />
+                <input type="email" name="email" id="email" class="form-control" ng-model="vm.newUser.Email" required />
                 <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+                <span ng-show="form.email.$dirty && form.email.$error.email" class="help-block">Email Address is invalid</span>
             </div>
             <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
                 <label for="username">Username</label>
