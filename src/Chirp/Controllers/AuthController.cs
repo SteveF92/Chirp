@@ -79,7 +79,7 @@ namespace Chirp.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Signup(SignupViewModel vm, string returnUrl)
+        public async Task<ActionResult> Signup([FromBody]SignupViewModel vm, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +114,14 @@ namespace Chirp.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Username or password incorrect");
+                    if (signUpResult.Errors.First().Code == "DuplicateEmail")
+                    {
+                        ModelState.AddModelError("", "That email is already in use.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Username or password incorrect");
+                    }
                 }
             }
 
