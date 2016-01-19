@@ -10,11 +10,11 @@
 
         vm.newUser = {};
 
-        vm.errorMessage = "";
+        vm.message = "";
         vm.isBusy = false;
 
         vm.signup = function () {
-            vm.errorMessage = "";
+            vm.message = "";
             vm.isBusy = true;
 
             $http.post("/auth/signup", vm.newUser)
@@ -23,7 +23,7 @@
                     vm.newUser = {};
                 }, function (error) {
                     //Failure
-                    vm.errorMessage = "Failed to signup: " + error;
+                    vm.message = "Failed to signup: " + error;
                 })
                 .finally(function () {
                     vm.isBusy = false;
