@@ -7,19 +7,7 @@
 
     function chirpsController($http) {
         var vm = this;
-        vm.chirpPosts = [{
-            message: "WOOP",
-            user: {
-                userName: "Steve"
-            },
-            postTime: new Date()
-        }, {
-            message: "THIS IS IT",
-            user: {
-                userName: "Shawn"
-            },
-            postTime: new Date()
-        }];
+        vm.chirpPosts = [];
 
         vm.newChirpPost = {};
 
@@ -53,7 +41,7 @@
                     .then(function (response) {
                         //Success
                         vm.chirpPosts.push(response.data);
-                        vm.newChirp = {};
+                        vm.newChirpPost.message = "";
                     }, function (error) {
                         //Failure
                         vm.errorMessage = "Failed to get Chirps: " + error;
