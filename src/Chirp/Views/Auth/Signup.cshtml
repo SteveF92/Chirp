@@ -5,6 +5,7 @@
 
 @section Scripts{
     <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/simpleControls.js"></script>
     <script src="~/js/app-signup.js"></script>
     <script src="~/js/signupController.js"></script>
 }
@@ -15,6 +16,7 @@
         <div class="text-danger" ng-show="vm.ErrorMessage"> {{vm.errorMessage}} </div>
 
         <form novalidate name="form" ng-submit="vm.signup()" role="form">
+            <wait-cursor display-when="vm.isBusy"></wait-cursor>
             <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
                 <label for="email">Email</label>
                 <input type="text" name="email" id="email" class="form-control" ng-model="vm.newUser.Email" required />
@@ -40,7 +42,6 @@
             </div>
             <div class="form-actions">
                 <button type="submit" ng-disabled="form.$invalid || vm.isBusy" class="btn btn-primary">Signup</button>
-                <div ng-show="vm.isBusy"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
             </div>
         </form>
         <a asp-controller="Auth" asp-action="Login">Login</a>

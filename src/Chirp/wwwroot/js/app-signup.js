@@ -2,5 +2,5 @@
     "use strict";
 
     //Creating the module
-    angular.module("app-signup", []);
+    angular.module("app-signup", ["simpleControls"]);
 })();
