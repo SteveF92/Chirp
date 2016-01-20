@@ -50,7 +50,7 @@ namespace Chirp.Controllers
                 {
                     if (String.IsNullOrWhiteSpace(returnUrl))
                     {
-                        return RedirectToAction("Chirps", "App");
+                        return RedirectToAction("Index", "App");
                     }
                     else
                     {
@@ -85,14 +85,21 @@ namespace Chirp.Controllers
             {
                 if (vm.Password != vm.ConfirmPassword)
                 {
-                    ModelState.AddModelError("", "Passwords must match");
+                    ModelState.AddModelError("", "Passwords must match.");
                     return View();
                 }
 
                 var userFound = await m_userManager.FindByNameAsync(vm.Username);
                 if (userFound != null)
                 {
-                    ModelState.AddModelError("", "Username taken");
+                    ModelState.AddModelError("", "This username is already in use.");
+                    return View();
+                }
+
+                userFound = await m_userManager.FindByEmailAsync(vm.Email);
+                if (userFound != null)
+                {
+                    ModelState.AddModelError("", "This email address is already in use.");
                     return View();
                 }
 
@@ -103,13 +110,12 @@ namespace Chirp.Controllers
                 };
 
                 var signUpResult = await m_userManager.CreateAsync(newUser, vm.Password);
-
                 if (signUpResult.Succeeded)
                 {
                     var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
                     if (signInResult.Succeeded)
                     {
-                        return RedirectToAction("Index", "App");
+                        return Json(new { url = "/app/index" });
                     }
                 }
                 else
