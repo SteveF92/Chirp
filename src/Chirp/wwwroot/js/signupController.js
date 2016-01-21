@@ -10,20 +10,26 @@
 
         vm.newUser = {};
 
-        vm.message = "";
+        vm.errorMessage = "";
         vm.isBusy = false;
 
         vm.signup = function () {
-            vm.message = "";
+            vm.errorMessage = "";
             vm.isBusy = true;
 
             $http.post("/auth/signup", vm.newUser)
                 .then(function (response) {
                     //Success
-                    $window.location.href = response.data.url;
+                    if (typeof response.data.error === 'undefined') {
+                        $window.location.href = response.data.url;
+                    }
+                    else {
+                        //Returned error condition
+                        vm.errorMessage = response.data.error;
+                    }
                 }, function (error) {
                     //Failure
-                    vm.message = "Failed to signup: " + error;
+                    vm.errorMessage = error.message;
                     vm.newUser.Password = "";
                     vm.newUser.ConfirmPassword = "";
                 })

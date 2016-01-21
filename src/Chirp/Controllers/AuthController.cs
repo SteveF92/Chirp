@@ -79,28 +79,25 @@ namespace Chirp.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Signup([FromBody]SignupViewModel vm, string returnUrl)
+        public async Task<JsonResult> Signup([FromBody]SignupViewModel vm, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 if (vm.Password != vm.ConfirmPassword)
                 {
-                    ModelState.AddModelError("", "Passwords must match.");
-                    return View();
+                    return Json(new { error = "The passwords you entered did not match." });
                 }
 
                 var userFound = await m_userManager.FindByNameAsync(vm.Username);
                 if (userFound != null)
                 {
-                    ModelState.AddModelError("", "This username is already in use.");
-                    return View();
+                    return Json(new { error = "This username is already in use." });
                 }
 
                 userFound = await m_userManager.FindByEmailAsync(vm.Email);
                 if (userFound != null)
                 {
-                    ModelState.AddModelError("", "This email address is already in use.");
-                    return View();
+                    return Json(new { error = "This email address is already in use." });
                 }
 
                 var newUser = new ChirpUser()
@@ -120,18 +117,11 @@ namespace Chirp.Controllers
                 }
                 else
                 {
-                    if (signUpResult.Errors.First().Code == "DuplicateEmail")
-                    {
-                        ModelState.AddModelError("", "That email is already in use.");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Username or password incorrect");
-                    }
+                    return Json(new { error = "Unknown sign up error." });
                 }
             }
 
-            return View();
+            return Json(new { error = "Unknown sign up error." });
         }
 
 
