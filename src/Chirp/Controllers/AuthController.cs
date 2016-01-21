@@ -40,30 +40,25 @@ namespace Chirp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(LoginViewModel vm, string returnUrl)
+        public async Task<JsonResult> Login([FromBody]LoginViewModel vm, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
-
-                if (signInResult.Succeeded)
-                {
-                    if (String.IsNullOrWhiteSpace(returnUrl))
-                    {
-                        return RedirectToAction("Index", "App");
-                    }
-                    else
-                    {
-                        return Redirect(returnUrl);
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Username or password incorrect");
-                }
+                return Json(new { error = "Sign in Error" });
             }
 
-            return View();
+            var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
+            if (!signInResult.Succeeded)
+            {
+                return Json(new { error = "Username or password incorrect" });
+            }
+
+            if (!String.IsNullOrWhiteSpace(returnUrl))
+            {
+                return Json(new { url = returnUrl });
+            }
+
+            return Json(new { url = "/app/index" });
         }
 
         [HttpGet]
