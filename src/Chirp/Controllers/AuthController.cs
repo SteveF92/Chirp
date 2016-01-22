@@ -107,6 +107,13 @@ namespace Chirp.Controllers
             var signUpResult = await m_userManager.CreateAsync(newUser, vm.Password);
             if (!signUpResult.Succeeded)
             {
+                if (signUpResult.Errors.Any())
+                {
+                    if (signUpResult.Errors.First().Code == "InvalidUserName")
+                    {
+                        return Json(new { error = "Invalid username. Usernames can only contain letters, numbers, and .-_" });
+                    }
+                }
                 return Json(new { error = "Unknown sign up error." });
             }
             var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
