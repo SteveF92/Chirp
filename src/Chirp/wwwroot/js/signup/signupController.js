@@ -5,25 +5,33 @@
     angular.module("app-signup")
         .controller("signupController", signupController);
 
-    function signupController($http) {
+    function signupController($http, $window) {
         var vm = this;
 
         vm.newUser = {};
 
-        vm.message = "";
+        vm.errorMessage = "";
         vm.isBusy = false;
 
         vm.signup = function () {
-            vm.message = "";
+            vm.errorMessage = "";
             vm.isBusy = true;
 
             $http.post("/auth/signup", vm.newUser)
                 .then(function (response) {
                     //Success
-                    vm.newUser = {};
+                    if (typeof response.data.error === 'undefined') {
+                        $window.location.href = response.data.url;
+                    }
+                    else {
+                        //Returned error condition
+                        vm.errorMessage = response.data.error;
+                    }
                 }, function (error) {
                     //Failure
-                    vm.message = "Failed to signup: " + error;
+                    vm.errorMessage = error.message;
+                    vm.newUser.Password = "";
+                    vm.newUser.ConfirmPassword = "";
                 })
                 .finally(function () {
                     vm.isBusy = false;

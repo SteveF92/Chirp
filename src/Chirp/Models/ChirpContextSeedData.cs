@@ -27,7 +27,7 @@ namespace Chirp.Models
                     Email = "chase.huxley@chirp.com"
                 };
 
-                var userRes = await m_userManager.CreateAsync(newUser, "Myp@55word");
+                var userRes = await m_userManager.CreateAsync(newUser, "qwertyui");
             }
 
             m_context.SaveChanges();

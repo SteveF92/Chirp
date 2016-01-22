@@ -40,30 +40,40 @@ namespace Chirp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(LoginViewModel vm, string returnUrl)
+        public async Task<JsonResult> Login([FromBody]LoginViewModel vm, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
-
-                if (signInResult.Succeeded)
-                {
-                    if (String.IsNullOrWhiteSpace(returnUrl))
-                    {
-                        return RedirectToAction("Chirps", "App");
-                    }
-                    else
-                    {
-                        return Redirect(returnUrl);
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Username or password incorrect");
-                }
+                return Json(new { error = "Sign in Error" });
             }
 
-            return View();
+            string username;
+            if (vm.Username.Contains("@"))
+            {
+                var userFound = await m_userManager.FindByEmailAsync(vm.Username);
+                if (userFound == null)
+                {
+                    return Json(new { error = "Username or password incorrect" });
+                }
+                username = userFound.UserName;
+            }
+            else
+            {
+                username = vm.Username;
+            }
+
+            var signInResult = await m_signInManager.PasswordSignInAsync(username, vm.Password, true, false);
+            if (!signInResult.Succeeded)
+            {
+                return Json(new { error = "Username or password incorrect" });
+            }
+
+            if (!String.IsNullOrWhiteSpace(returnUrl))
+            {
+                return Json(new { url = returnUrl });
+            }
+
+            return Json(new { url = "/app/index" });
         }
 
         [HttpGet]
@@ -79,53 +89,54 @@ namespace Chirp.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Signup([FromBody]SignupViewModel vm, string returnUrl)
+        public async Task<JsonResult> Signup([FromBody]SignupViewModel vm, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                if (vm.Password != vm.ConfirmPassword)
-                {
-                    ModelState.AddModelError("", "Passwords must match");
-                    return View();
-                }
-
-                var userFound = await m_userManager.FindByNameAsync(vm.Username);
-                if (userFound != null)
-                {
-                    ModelState.AddModelError("", "Username taken");
-                    return View();
-                }
-
-                var newUser = new ChirpUser()
-                {
-                    UserName = vm.Username,
-                    Email = vm.Email
-                };
-
-                var signUpResult = await m_userManager.CreateAsync(newUser, vm.Password);
-
-                if (signUpResult.Succeeded)
-                {
-                    var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
-                    if (signInResult.Succeeded)
-                    {
-                        return RedirectToAction("Index", "App");
-                    }
-                }
-                else
-                {
-                    if (signUpResult.Errors.First().Code == "DuplicateEmail")
-                    {
-                        ModelState.AddModelError("", "That email is already in use.");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Username or password incorrect");
-                    }
-                }
+                return Json(new { error = "Unknown sign up error." });
             }
 
-            return View();
+            if (vm.Password != vm.ConfirmPassword)
+            {
+                return Json(new { error = "The passwords you entered did not match." });
+            }
+
+            var userFound = await m_userManager.FindByNameAsync(vm.Username);
+            if (userFound != null)
+            {
+                return Json(new { error = "This username is already in use." });
+            }
+
+            userFound = await m_userManager.FindByEmailAsync(vm.Email);
+            if (userFound != null)
+            {
+                return Json(new { error = "This email address is already in use." });
+            }
+
+            var newUser = new ChirpUser()
+            {
+                UserName = vm.Username,
+                Email = vm.Email
+            };
+
+            var signUpResult = await m_userManager.CreateAsync(newUser, vm.Password);
+            if (!signUpResult.Succeeded)
+            {
+                if (signUpResult.Errors.Any())
+                {
+                    if (signUpResult.Errors.First().Code == "InvalidUserName")
+                    {
+                        return Json(new { error = "Invalid username. Usernames can only contain letters, numbers, and .-_" });
+                    }
+                }
+                return Json(new { error = "Unknown sign up error." });
+            }
+            var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
+            if (!signInResult.Succeeded)
+            {
+                return Json(new { error = "Account Created, but could not sign in." });
+            }
+            return Json(new { url = "/app/index" });
         }
 
 

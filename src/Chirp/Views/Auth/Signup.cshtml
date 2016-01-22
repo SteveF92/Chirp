@@ -6,15 +6,18 @@
 @section Scripts{
     <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/js/simpleControls.js"></script>
-    <script src="~/js/app-signup.js"></script>
-    <script src="~/js/signupController.js"></script>
+    <script src="~/js/signup/app-signup.js"></script>
+    <script src="~/js/signup/signupController.js"></script>
 }
 
 <div class="row" ng-app="app-signup">
+
     <div ng-controller="signupController as vm" class="col-md-6 col-md-offset-3">
         <h3>Signup</h3>
-        <div class="text-danger" ng-show="vm.ErrorMessage"> {{vm.errorMessage}} </div>
-
+        <div class="alert alert-danger" role="alert" ng-show="vm.errorMessage">
+            <i class="fa fa-exclamation-triangle"></i>
+            {{vm.errorMessage}}
+        </div>
         <form novalidate name="form" ng-submit="vm.signup()" role="form">
             <wait-cursor display-when="vm.isBusy"></wait-cursor>
             <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
