@@ -47,7 +47,22 @@ namespace Chirp.Controllers
                 return Json(new { error = "Sign in Error" });
             }
 
-            var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
+            string username;
+            if (vm.Username.Contains("@"))
+            {
+                var userFound = await m_userManager.FindByEmailAsync(vm.Username);
+                if (userFound == null)
+                {
+                    return Json(new { error = "Username or password incorrect" });
+                }
+                username = userFound.UserName;
+            }
+            else
+            {
+                username = vm.Username;
+            }
+
+            var signInResult = await m_signInManager.PasswordSignInAsync(username, vm.Password, true, false);
             if (!signInResult.Succeeded)
             {
                 return Json(new { error = "Username or password incorrect" });
