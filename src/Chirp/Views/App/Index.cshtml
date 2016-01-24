@@ -15,7 +15,7 @@
             <form novalidate name="newChirpPostForm" ng-Submit="vm.addChirpPost()">
                 <h4> @@@User.Identity.Name says </h4>
                 <div class="form-group">
-                    <textarea id="chirpPostText" class="form-control " maxLength="200" rows="3" placeholder="Say something"
+                    <textarea id="chirpPostText" class="form-control " ng-minlength="5" ng-maxlength="255" rows="3" placeholder="Say something"
                               ng-model="vm.newChirpPost.message" required></textarea>
                 </div>
                 <input class="btn submit-btn pull-right" type="submit" value="Chirp!" ng-disabled="newChirpPostForm.$invalid" />
