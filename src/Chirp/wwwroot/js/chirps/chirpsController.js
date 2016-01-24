@@ -8,13 +8,12 @@
     function chirpsController($http) {
         var vm = this;
         vm.chirpPosts = [];
-
         vm.newChirpPost = {};
-
         vm.errorMessage = "";
-        vm.isBusy = true;
+        
 
-        $http.get("/api/chirpposts")
+        vm.getChirps = function () {
+            $http.get("/api/chirpposts")
             .then(function (response) {
                 //Success
                 angular.copy(response.data, vm.chirpPosts);
@@ -25,8 +24,11 @@
             .finally(function () {
                 vm.isBusy = false;
             });
+        };
 
-
+        vm.isBusy = true;
+        vm.getChirps();
+        
         vm.addChirpPost = function () {
             vm.errorMessage = "";
             vm.isBusy = true;
