@@ -10,12 +10,15 @@
 
 <div class="row" ng-app="app-chirps">
     <div class="col-md-12" ng-controller="chirpsController as vm">
-        <div class="text-danger" ng-show="vm.errorMessage">{{vm.errorMessage}}</div>
+        <div class="alert alert-danger" role="alert" ng-show="vm.errorMessage" ng-cloak>
+            <i class="fa fa-exclamation-triangle"></i>
+            <span ng-bind="vm.errorMessage"></span>
+        </div>
         <div id="chirp-form" class="container-fluid">
             <form novalidate name="newChirpPostForm" ng-Submit="vm.addChirpPost()">
                 <h4> @@@User.Identity.Name says </h4>
                 <div class="form-group">
-                    <textarea id="chirpPostText" class="form-control " maxLength="200" rows="3" placeholder="Say something"
+                    <textarea id="chirpPostText" class="form-control " ng-minlength="5" ng-maxlength="255" rows="3" placeholder="Say something"
                               ng-model="vm.newChirpPost.message" required></textarea>
                 </div>
                 <input class="btn submit-btn pull-right" type="submit" value="Chirp!" ng-disabled="newChirpPostForm.$invalid" />
@@ -25,9 +28,9 @@
         <div ng-show="vm.isBusy" class="text-center"><i class="fa fa-refresh fa-spin"></i> Loading...</div>
         <div ng-hide="vm.isBusy" id="post-stream" class="container-fluid">
             <div class='post' ng-repeat="chirpPost in vm.chirpPosts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
-                <p>{{chirpPost.message}}</p>
-                <small>Posted by @@{{chirpPost.user.userName}}</small>
-                <small class="pull-right">{{chirpPost.postTime | date:"h:mma 'on' MMM d, y"}}
+                <p ng-bind="chirpPost.message"></p>
+                <small ng-bind-template="Posted by @@{{chirpPost.user.userName}}"></small>
+                <small class="pull-right" ng-bind="chirpPost.postTime | date:'medium'"></small>
             </div>
         </div>
     </div>
