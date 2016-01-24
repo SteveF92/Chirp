@@ -61,6 +61,10 @@ input[type=text], input[type=password], textarea {
 	margin: 10px 0 10px 0;
 }
 
+#refresh-button{
+    margin: 5px;
+}
+
 .post {
 	padding: 10px;
 	margin-bottom: 5px;
