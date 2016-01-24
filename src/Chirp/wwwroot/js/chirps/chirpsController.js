@@ -10,12 +10,14 @@
         vm.chirpPosts = [];
         vm.newChirpPost = {};
         vm.errorMessage = "";
-        
+        vm.firstLoad = false;
 
         vm.getChirps = function () {
+            vm.isBusy = true;
             $http.get("/api/chirpposts")
             .then(function (response) {
                 //Success
+                vm.firstLoad = true;
                 angular.copy(response.data, vm.chirpPosts);
             }, function (error) {
                 //Failure
@@ -26,7 +28,6 @@
             });
         };
 
-        vm.isBusy = true;
         vm.getChirps();
         
         vm.addChirpPost = function () {
