@@ -5,7 +5,7 @@
     angular.module("app-chirps")
         .controller("chirpsController", chirpsController);
 
-    function chirpsController($http) {
+    function chirpsController($http, $scope, chirpPostHub) {
         var vm = this;
         vm.chirpPosts = [];
         vm.newChirpPost = {};
@@ -45,6 +45,7 @@
                         //Success
                         vm.chirpPosts.push(response.data);
                         vm.newChirpPost.message = "";
+                        chirpPostHub.server.refreshChirps("WOOP");
                     }, function (error) {
                         //Failure
                         vm.errorMessage = "Failed to get Chirps: " + error;
@@ -59,6 +60,13 @@
             .finally(function () {
                 vm.isBusy = false;
             });
+        };
+
+        // Method which receives data.
+        chirpPostHub.client.refreshChirps = function (message) {
+            // Method which handles messages.
+            vm.getChirps();
+            $scope.$apply();
         };
     }
 })();
