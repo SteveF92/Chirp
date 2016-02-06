@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Chirp.Hubs;
 using Chirp.Models;
 using Chirp.ViewModels;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Chirp.Controllers.Api
 {
-    [Authorize]
+    [Microsoft.AspNet.Authorization.Authorize]
     [Route("api/chirpposts")]
     public class ChirpPostController : Controller
     {
@@ -48,6 +50,10 @@ namespace Chirp.Controllers.Api
                     if (m_repository.SaveAll())
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;
+
+                        var hubContext = GlobalHost.ConnectionManager.GetHubContext<ChirpPostHub>();
+                        hubContext.Clients.All.RefreshChirps("WOOP");
+
                         return Json(Mapper.Map<ChirpPostViewModel>(newPost));
                     }
                 }
