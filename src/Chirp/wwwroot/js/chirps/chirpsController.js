@@ -62,7 +62,7 @@
         };
 
         // Method which receives data.
-        chirpPostHub.client.refreshChirps = function (message) {
+        chirpPostHub.client.refreshChirps = function () {
             // Method which handles messages.
             vm.getChirps();
             $scope.$apply();
