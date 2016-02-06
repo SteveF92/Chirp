@@ -10,6 +10,7 @@ using Chirp.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNet.Diagnostics;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using Chirp.ViewModels;
@@ -89,8 +90,15 @@ namespace Chirp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, ChirpContextSeedData seeder, ILoggerFactory loggerFactory)
+        public async void Configure(IApplicationBuilder app, ChirpContextSeedData seeder, ILoggerFactory loggerFactory, IHostingEnvironment env)
         {
+            if (string.Equals(env.EnvironmentName, "Development", StringComparison.OrdinalIgnoreCase))
+            {
+                app.UseDeveloperExceptionPage();
+
+                app.UseRuntimeInfoPage(); // default path is /runtimeinfo
+            }
+
             loggerFactory.AddDebug(LogLevel.Information);
 
             app.UseStaticFiles();
