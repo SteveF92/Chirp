@@ -111,6 +111,8 @@ namespace Chirp
                 config.CreateMap<ChirpUser, ChirpUserViewModel>().ReverseMap();
             });
 
+            app.UseSignalR2();
+
             app.UseMvc(Configure =>
             {
                 Configure.MapRoute(
