@@ -5,6 +5,7 @@
     "bootstrap": "3.3.5",
     "angular": "~1.4.8",
     "font-awesome": "~4.5.0",
-    "jquery": "~2.2.0"
+    "jquery": "~2.2.0",
+    "signalr": "~2.2.0"
   }
 }
