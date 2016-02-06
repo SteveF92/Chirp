@@ -52,7 +52,7 @@ namespace Chirp
             services.AddIdentity<ChirpUser, IdentityRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
-                config.User.AllowedUserNameCharacters = Properties.Resource.AllowedUsernameCharacters;
+                config.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-._";
 
                 config.Password.RequiredLength = 8;
                 config.Password.RequireLowercase = false;
