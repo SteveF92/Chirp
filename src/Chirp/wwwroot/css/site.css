@@ -53,7 +53,7 @@ input[type=text], input[type=password], textarea {
     border-color: #bce7f1;
 
     padding: 4px;
-    margin: 0;
+    margin-top: 10px;
 }
 
 .submit-btn {
