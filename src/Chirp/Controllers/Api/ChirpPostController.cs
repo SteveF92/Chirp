@@ -5,6 +5,7 @@ using Chirp.ViewModels;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Infrastructure;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,13 @@ namespace Chirp.Controllers.Api
     {
         private ILogger m_logger;
         private IChirpRepository m_repository;
+        private IConnectionManager m_connectionManager;
 
-        public ChirpPostController(IChirpRepository a_repository, ILogger<ChirpPostController> a_logger)
+        public ChirpPostController(IChirpRepository a_repository, ILogger<ChirpPostController> a_logger, IConnectionManager a_connectionManager)
         {
             m_repository = a_repository;
             m_logger = a_logger;
+            m_connectionManager = a_connectionManager;
         }
 
         [HttpGet("")]
@@ -51,8 +54,10 @@ namespace Chirp.Controllers.Api
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;
 
-                        //var hubContext = GlobalHost.ConnectionManager.GetHubContext<ChirpPostHub>();
-                        //hubContext.Clients.All.RefreshChirps();
+                        IHubContext context = m_connectionManager.GetHubContext<ChirpPostHub>();
+                        IConnection connection = m_connectionManager.GetConnectionContext<PersistentConnection>().Connection;
+
+                        context.Clients.All.RefreshChirps();
 
                         return Json(Mapper.Map<ChirpPostViewModel>(newPost));
                     }
