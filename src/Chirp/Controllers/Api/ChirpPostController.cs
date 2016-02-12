@@ -51,8 +51,8 @@ namespace Chirp.Controllers.Api
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;
 
-                        var hubContext = GlobalHost.ConnectionManager.GetHubContext<ChirpPostHub>();
-                        hubContext.Clients.All.RefreshChirps();
+                        //var hubContext = GlobalHost.ConnectionManager.GetHubContext<ChirpPostHub>();
+                        //hubContext.Clients.All.RefreshChirps();
 
                         return Json(Mapper.Map<ChirpPostViewModel>(newPost));
                     }

@@ -17,9 +17,7 @@
     "AutoMapper": "4.0.4",
     "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Owin": "1.0.0-rc1-final",
-    "Microsoft.AspNet.SignalR.Core": "2.2.0",
-    "Microsoft.AspNet.SignalR.Owin": "1.2.2"
+    "Microsoft.AspNet.SignalR.Server": "3.0.0-rc1-final"
   },
 
   "commands": {

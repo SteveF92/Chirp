@@ -49,6 +49,8 @@ namespace Chirp
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
+            services.AddSignalR();
+
             services.AddIdentity<ChirpUser, IdentityRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
@@ -111,7 +113,7 @@ namespace Chirp
                 config.CreateMap<ChirpUser, ChirpUserViewModel>().ReverseMap();
             });
 
-            app.UseSignalR2();
+            app.UseSignalR();
 
             app.UseMvc(Configure =>
             {
