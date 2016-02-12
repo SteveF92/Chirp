@@ -11,6 +11,6 @@
         };
 
         vm.woop = function () {
-            chirpPostHub.server.refreshChirps("WOOP");
+            chirpPostHub.server.refreshChirps();
         };
     });
