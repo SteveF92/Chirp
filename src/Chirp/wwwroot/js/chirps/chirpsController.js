@@ -5,7 +5,7 @@
     angular.module("app-chirps")
         .controller("chirpsController", chirpsController);
 
-    function chirpsController($http) {
+    function chirpsController($http, $scope, chirpPostHub) {
         var vm = this;
         vm.chirpPosts = [];
         vm.newChirpPost = {};
@@ -59,6 +59,13 @@
             .finally(function () {
                 vm.isBusy = false;
             });
+        };
+
+        // Method which receives data.
+        chirpPostHub.client.refreshChirps = function () {
+            // Method which handles messages.
+            vm.getChirps();
+            $scope.$apply();
         };
     }
 })();
