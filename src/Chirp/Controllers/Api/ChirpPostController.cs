@@ -55,7 +55,6 @@ namespace Chirp.Controllers.Api
                         Response.StatusCode = (int)HttpStatusCode.Created;
 
                         IHubContext context = m_connectionManager.GetHubContext<ChirpPostHub>();
-                        IConnection connection = m_connectionManager.GetConnectionContext<PersistentConnection>().Connection;
 
                         context.Clients.All.RefreshChirps();
 
