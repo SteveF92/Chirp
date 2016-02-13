@@ -13,7 +13,7 @@ namespace Chirp.ViewModels
         [Required]
         [StringLength(255, MinimumLength = 5)]
         public string Message { get; set; }
-        public DateTime PostTime { get; set; }
+        public DateTimeOffset PostTime { get; set; }
         public ChirpUserViewModel User { get; set; }
     }
 }

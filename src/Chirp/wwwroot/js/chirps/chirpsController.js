@@ -33,7 +33,6 @@
         vm.addChirpPost = function () {
             vm.errorMessage = "";
             vm.isBusy = true;
-            vm.newChirpPost.postTime = new Date();
 
             $http.get("/auth/currentuser")
             .then(function (response) {
@@ -43,7 +42,7 @@
                 $http.post("/api/chirpposts", vm.newChirpPost)
                     .then(function (response) {
                         //Success
-                        vm.chirpPosts.push(response.data);
+                        vm.getChirps();
                         vm.newChirpPost.message = "";
                     }, function (error) {
                         //Failure

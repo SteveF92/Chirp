@@ -18,8 +18,7 @@ namespace Chirp.Controllers.Web
         [Authorize]
         public IActionResult Index()
         {
-            var chirpPosts = m_repository.GetAllPosts();
-            return View(chirpPosts);
+            return View();
         }
 
         public IActionResult About()
