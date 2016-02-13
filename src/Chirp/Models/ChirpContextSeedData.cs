@@ -38,7 +38,7 @@ namespace Chirp.Models
                 var chirpPost = new ChirpPost()
                 {
                     Message = "First message! ChirpChirp!",
-                    PostTime = DateTime.UtcNow,
+                    PostTime = DateTimeOffset.UtcNow,
                     User = await m_userManager.FindByEmailAsync("chase.huxley@chirp.com")
                 };
 

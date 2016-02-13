@@ -9,7 +9,7 @@ namespace Chirp.Models
     {
         public int Id { get; set; }
         public string Message { get; set; }
-        public DateTime PostTime { get; set; }
+        public DateTimeOffset PostTime { get; set; }
         public ChirpUser User { get; set; }
     }
 }

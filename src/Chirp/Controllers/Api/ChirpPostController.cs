@@ -46,6 +46,8 @@ namespace Chirp.Controllers.Api
                 {
                     var newPost = Mapper.Map<ChirpPost>(vm);
 
+                    newPost.PostTime = DateTimeOffset.UtcNow;
+
                     //Save to the database
                     m_logger.LogInformation("Attemting to save a new post");
                     m_repository.AddPost(newPost);
@@ -55,7 +57,6 @@ namespace Chirp.Controllers.Api
                         Response.StatusCode = (int)HttpStatusCode.Created;
 
                         IHubContext context = m_connectionManager.GetHubContext<ChirpPostHub>();
-
                         context.Clients.All.RefreshChirps();
 
                         return Json(Mapper.Map<ChirpPostViewModel>(newPost));
