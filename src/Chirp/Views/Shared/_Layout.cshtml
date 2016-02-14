@@ -13,7 +13,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
-            <span id="username">@User.Identity.Name</span>
+            <span id="username"> <a href="app/users/@User.Identity.Name">@User.Identity.Name </a> </span>
         }
         
         <ul class="nav">
