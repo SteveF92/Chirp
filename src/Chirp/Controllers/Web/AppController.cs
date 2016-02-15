@@ -1,5 +1,6 @@
 using Chirp.Database;
 using Chirp.Models;
+using Chirp.Services;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
@@ -13,11 +14,13 @@ namespace Chirp.Controllers.Web
     {
         private IChirpRepository m_repository;
         private UserManager<ChirpUser> m_userManager;
+        private IEmailSender m_emailSender;
 
-        public AppController(IChirpRepository a_repository, UserManager<ChirpUser> a_userManager)
+        public AppController(IChirpRepository a_repository, UserManager<ChirpUser> a_userManager, IEmailSender a_emailSender)
         {
             m_repository = a_repository;
             m_userManager = a_userManager;
+            m_emailSender = a_emailSender;
         }
 
         [Authorize]
@@ -31,8 +34,19 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
-        public IActionResult Contact()
+        public async Task<IActionResult> Contact()
         {
+            try
+            {
+                await m_emailSender.SendEmailAsync("sfallon92@gmail.com", "Confirm your account",
+                   "This is an email");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+                
+ 
             return View();
         }
 
