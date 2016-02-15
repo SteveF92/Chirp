@@ -15,6 +15,7 @@ using System.Net;
 
 namespace Chirp.Controllers
 {
+    [Route("auth/[action]")]
     public class AuthController : Controller
     {
         private SignInManager<ChirpUser> m_signInManager;
@@ -73,7 +74,7 @@ namespace Chirp.Controllers
                 return Json(new { url = returnUrl });
             }
 
-            return Json(new { url = "/app/index" });
+            return Json(new { url = "" });
         }
 
         [HttpGet]
@@ -136,7 +137,7 @@ namespace Chirp.Controllers
             {
                 return Json(new { error = "Account Created, but could not sign in." });
             }
-            return Json(new { url = "/app/index" });
+            return Json(new { url = "" });
         }
 
 
