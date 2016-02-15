@@ -69,19 +69,20 @@ namespace Chirp
                 {
                     OnRedirectToLogin = ctx =>
                     {
-                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == (int) HttpStatusCode.OK)
+                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == (int)HttpStatusCode.OK)
                         {
-                            ctx.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                         }
                         else
                         {
                             ctx.Response.Redirect(ctx.RedirectUri);
-                        }   
+                        }
                         return Task.FromResult(0);
                     }
                 };
             })
-            .AddEntityFrameworkStores<ChirpContext>();
+            .AddEntityFrameworkStores<ChirpContext>()
+            .AddDefaultTokenProviders();
 
             services.AddLogging();
 
