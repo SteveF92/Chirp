@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Chirp.Hubs;
-using Chirp.Models;
+using Chirp.Database;
 using Chirp.ViewModels;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Chirp.Models;
 
 namespace Chirp.Controllers.Api
 {

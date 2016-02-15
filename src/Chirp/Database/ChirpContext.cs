@@ -1,8 +1,9 @@
 using System;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
+using Chirp.Models;
 
-namespace Chirp.Models
+namespace Chirp.Database
 {
     public class ChirpContext : IdentityDbContext<ChirpUser>
     {

@@ -1,9 +1,10 @@
+using Chirp.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Chirp.Models
+namespace Chirp.Database
 {
     public class ChirpContextSeedData
     {

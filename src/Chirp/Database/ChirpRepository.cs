@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
+using Chirp.Models;
 
-
-namespace Chirp.Models
+namespace Chirp.Database
 {
     public class ChirpRepository : IChirpRepository
     {

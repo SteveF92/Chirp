@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Chirp.Models;
+using System.Collections.Generic;
 
-namespace Chirp.Models
+namespace Chirp.Database
 {
     public interface IChirpRepository
     {

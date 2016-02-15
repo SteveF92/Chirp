@@ -1,3 +1,4 @@
+using Chirp.Database;
 using Chirp.Models;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;

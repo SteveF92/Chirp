@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Identity;
-using Chirp.Models;
+using Chirp.Database;
 using Chirp.ViewModels;
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System.Net;
+using Chirp.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
