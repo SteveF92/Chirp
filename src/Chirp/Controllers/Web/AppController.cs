@@ -1,12 +1,15 @@
+using AutoMapper;
 using Chirp.Database;
 using Chirp.Models;
 using Chirp.Services;
+using Chirp.ViewModels;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Chirp.Controllers.Web
 {
@@ -48,7 +51,16 @@ namespace Chirp.Controllers.Web
                 return Json(new { error = "Username or password incorrect" });
             }
 
-            return View(userFound);
+            var userViewModel = Mapper.Map<ChirpUserViewModel>(userFound);
+            return View(userViewModel);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> MyAccount()
+        {
+            var user = await m_userManager.FindByIdAsync(User.GetUserId());
+            var userViewModel = Mapper.Map<ChirpUserViewModel>(user);
+            return View(userViewModel);
         }
     }
 }
