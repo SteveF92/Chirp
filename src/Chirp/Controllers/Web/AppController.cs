@@ -42,10 +42,12 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
-        [Route("users/{userName}")]
         public async Task<IActionResult> Users(string userName)
         {
-            var userFound = await m_userManager.FindByNameAsync(userName);
+            var path = this.HttpContext.Request.Path.Value;
+            var userNameFromPath = path.Substring(path.LastIndexOf('/') + 1);
+
+            var userFound = await m_userManager.FindByNameAsync(userNameFromPath);
             if (userFound == null)
             {
                 return Json(new { error = "Username or password incorrect" });

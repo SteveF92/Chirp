@@ -14,7 +14,7 @@
         {
             <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
             <span id="username">
-                <a href="users/@User.Identity.Name">
+                <a asp-controller="App" asp-action="Users" asp-route-id="@User.Identity.Name">
                     @User.Identity.Name
                 </a>
                 <a asp-controller="App" asp-action="MyAccount">
