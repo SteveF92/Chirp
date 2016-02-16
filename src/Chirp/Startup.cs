@@ -19,6 +19,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authentication.Cookies;
 using System.Net;
 using Chirp.Models;
+using Chirp.Services;
 
 namespace Chirp
 {
@@ -68,19 +69,20 @@ namespace Chirp
                 {
                     OnRedirectToLogin = ctx =>
                     {
-                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == (int) HttpStatusCode.OK)
+                        if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == (int)HttpStatusCode.OK)
                         {
-                            ctx.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                         }
                         else
                         {
                             ctx.Response.Redirect(ctx.RedirectUri);
-                        }   
+                        }
                         return Task.FromResult(0);
                     }
                 };
             })
-            .AddEntityFrameworkStores<ChirpContext>();
+            .AddEntityFrameworkStores<ChirpContext>()
+            .AddDefaultTokenProviders();
 
             services.AddLogging();
 
@@ -90,6 +92,23 @@ namespace Chirp
 
             services.AddTransient<ChirpContextSeedData>();
             services.AddScoped<IChirpRepository, ChirpRepository>();
+
+            services.AddOptions();
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
+            // Configure MyOptions using code
+            services.Configure<AuthMessageSenderOptions>(myOptions =>
+            {
+                myOptions.SendGridUser = Configuration["SendGrid:SendGridUser"];
+                myOptions.SendGridPassword = Configuration["SendGrid:SendGridPassword"];
+                myOptions.SendGridKey = Configuration["SendGrid:SendGridKey"];
+            });
+
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

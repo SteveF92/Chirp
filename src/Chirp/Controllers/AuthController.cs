@@ -11,6 +11,8 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using Chirp.Models;
+using Chirp.Services;
+using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,12 +24,14 @@ namespace Chirp.Controllers
         private SignInManager<ChirpUser> m_signInManager;
         private UserManager<ChirpUser> m_userManager;
         private ILogger<AuthController> m_logger;
+        private IEmailSender m_emailSender;
 
-        public AuthController(SignInManager<ChirpUser> a_signInManager, UserManager<ChirpUser> a_userManager, ILogger<AuthController> a_logger)
+        public AuthController(SignInManager<ChirpUser> a_signInManager, UserManager<ChirpUser> a_userManager, ILogger<AuthController> a_logger, IEmailSender a_emailSender)
         {
             m_signInManager = a_signInManager;
             m_userManager = a_userManager;
             m_logger = a_logger;
+            m_emailSender = a_emailSender;
         }
 
         [HttpGet]
@@ -133,12 +137,13 @@ namespace Chirp.Controllers
                 }
                 return Json(new { error = "Unknown sign up error." });
             }
-            var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
-            if (!signInResult.Succeeded)
-            {
-                return Json(new { error = "Account Created, but could not sign in." });
-            }
-            return Json(new { url = "" });
+
+            var code = await m_userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            var callbackUrl = Url.Action("EmailConfirmed", "Auth", new { userId = newUser.Id, code = code }, protocol: HttpContext.Request.Scheme);
+            var emailBody = $"Please confirm your account by clicking this link: <br/> <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
+            await m_emailSender.SendEmailAsync(newUser.Email, "Confirm your account", emailBody);
+
+            return Json(new { url = "confirmemailsent" });
         }
 
 
@@ -172,6 +177,29 @@ namespace Chirp.Controllers
             }
 
             return RedirectToAction("Index", "App");
+        }
+
+        public IActionResult ConfirmEmailSent()
+        {
+            return View();
+        }
+
+        // GET: /Account/ConfirmEmail
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> EmailConfirmed(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var user = await m_userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return View("Error");
+            }
+            var result = await m_userManager.ConfirmEmailAsync(user, code);
+            return View(result.Succeeded ? "EmailConfirmed" : "Error");
         }
     }
 }

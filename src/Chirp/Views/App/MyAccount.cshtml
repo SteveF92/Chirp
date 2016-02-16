@@ -1,0 +1,38 @@
+﻿@model Chirp.ViewModels.ChirpUserViewModel
+
+@{
+    ViewBag.Title = "Account Settings";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Account Settings - @Model.UserName</h1>
+        <h2></h2>
+        <br/>
+        <table class="table">
+            <tr>
+                <td>
+                    Email
+                </td>
+                <td>
+                    @Model.Email
+                </td>
+
+                @if (Model.EmailConfirmed)
+                {
+                    <td>
+                        Confirmed
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Unconfirmed
+                    </td>
+                }
+
+            </tr>
+        </table>
+    </div>
+</div>
+
