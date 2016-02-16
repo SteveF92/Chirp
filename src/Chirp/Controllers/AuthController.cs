@@ -138,24 +138,11 @@ namespace Chirp.Controllers
                 return Json(new { error = "Unknown sign up error." });
             }
 
-            //var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
-            //if (!signInResult.Succeeded)
-            //{
-            //    return Json(new { error = "Account Created, but could not sign in." });
-            //}
+            var code = await m_userManager.GenerateEmailConfirmationTokenAsync(newUser);
+            var callbackUrl = Url.Action("EmailConfirmed", "Auth", new { userId = newUser.Id, code = code }, protocol: HttpContext.Request.Scheme);
+            var emailBody = $"Please confirm your account by clicking this link: <br/> <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
+            await m_emailSender.SendEmailAsync(newUser.Email, "Confirm your account", emailBody);
 
-            try
-            {
-                var code = await m_userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                var callbackUrl = Url.Action("EmailConfirmed", "Auth", new { userId = newUser.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                var emailBody = $"Please confirm your account by clicking this link: <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
-                await m_emailSender.SendEmailAsync(newUser.Email, "Confirm your account", emailBody);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            
             return Json(new { url = "confirmemailsent" });
         }
 
