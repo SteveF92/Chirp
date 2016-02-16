@@ -201,5 +201,12 @@ namespace Chirp.Controllers
             var result = await m_userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "EmailConfirmed" : "Error");
         }
+
+        [Authorize]
+        public async Task<IActionResult> MyAccount()
+        {
+            var user = await m_userManager.FindByIdAsync(User.GetUserId());
+            return View(user);
+        }
     }
 }
