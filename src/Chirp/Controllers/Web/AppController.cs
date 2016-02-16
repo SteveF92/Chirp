@@ -34,19 +34,8 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
-        public async Task<IActionResult> Contact()
+        public IActionResult Contact()
         {
-            try
-            {
-                await m_emailSender.SendEmailAsync("sfallon92@gmail.com", "Confirm your account",
-                   "This is an email");
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-                
- 
             return View();
         }
 

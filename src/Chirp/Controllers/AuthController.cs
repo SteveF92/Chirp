@@ -137,6 +137,7 @@ namespace Chirp.Controllers
                 }
                 return Json(new { error = "Unknown sign up error." });
             }
+
             //var signInResult = await m_signInManager.PasswordSignInAsync(vm.Username, vm.Password, true, false);
             //if (!signInResult.Succeeded)
             //{
@@ -146,16 +147,16 @@ namespace Chirp.Controllers
             try
             {
                 var code = await m_userManager.GenerateEmailConfirmationTokenAsync(newUser);
-                var callbackUrl = Url.Action("ConfirmEmail", "Auth", new { userId = newUser.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                await m_emailSender.SendEmailAsync(newUser.Email, "Confirm your account",
-                    "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                var callbackUrl = Url.Action("EmailConfirmed", "Auth", new { userId = newUser.Id, code = code }, protocol: HttpContext.Request.Scheme);
+                var emailBody = $"Please confirm your account by clicking this link: <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
+                await m_emailSender.SendEmailAsync(newUser.Email, "Confirm your account", emailBody);
             }
             catch (Exception e)
             {
                 throw e;
             }
             
-            return Json(new { url = "" });
+            return Json(new { url = "confirmemailsent" });
         }
 
 
@@ -191,10 +192,15 @@ namespace Chirp.Controllers
             return RedirectToAction("Index", "App");
         }
 
+        public IActionResult ConfirmEmailSent()
+        {
+            return View();
+        }
+
         // GET: /Account/ConfirmEmail
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        public async Task<IActionResult> EmailConfirmed(string userId, string code)
         {
             if (userId == null || code == null)
             {
@@ -206,7 +212,7 @@ namespace Chirp.Controllers
                 return View("Error");
             }
             var result = await m_userManager.ConfirmEmailAsync(user, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            return View(result.Succeeded ? "EmailConfirmed" : "Error");
         }
     }
 }
