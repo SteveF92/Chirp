@@ -18,7 +18,7 @@ using Microsoft.AspNet.Authorization;
 
 namespace Chirp.Controllers.Api
 {
-    [Route("auth/user")]
+    [Route("api/user")]
     public class UserController : Controller
     {
         private SignInManager<ChirpUser> m_signInManager;
