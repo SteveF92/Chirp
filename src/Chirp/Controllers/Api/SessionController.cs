@@ -53,7 +53,7 @@ namespace Chirp.Controllers.Api
             }
         }
 
-        [HttpPost("")]
+        [HttpPost]
         public async Task<JsonResult> Login([FromBody]LoginViewModel vm, string returnUrl)
         {
             if (!ModelState.IsValid)
