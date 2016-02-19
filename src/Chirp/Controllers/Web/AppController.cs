@@ -17,13 +17,10 @@ namespace Chirp.Controllers.Web
     {
         private IChirpRepository m_repository;
         private UserManager<ChirpUser> m_userManager;
-        private IEmailSender m_emailSender;
 
-        public AppController(IChirpRepository a_repository, UserManager<ChirpUser> a_userManager, IEmailSender a_emailSender)
+        public AppController(UserManager<ChirpUser> a_userManager)
         {
-            m_repository = a_repository;
             m_userManager = a_userManager;
-            m_emailSender = a_emailSender;
         }
 
         [Authorize]
