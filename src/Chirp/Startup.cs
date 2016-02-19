@@ -64,7 +64,7 @@ namespace Chirp
                 config.Password.RequireDigit = false;
                 config.Password.RequireUppercase = false;
 
-                config.Cookies.ApplicationCookie.LoginPath = "/Login";
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
                 config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
                 {
                     OnRedirectToLogin = ctx =>
@@ -143,7 +143,7 @@ namespace Chirp
                 );
                 Configure.MapRoute(
                     name: "Default",
-                    template: "{action}/{id?}",
+                    template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "App", action = "Index" }
                 );
             });

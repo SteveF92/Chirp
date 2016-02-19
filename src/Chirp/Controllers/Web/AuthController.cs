@@ -27,6 +27,15 @@ namespace Chirp.Controllers.Web
             m_userManager = a_userManager;
         }
 
+        public IActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "App");
+            }
+
+            return View();
+        }
 
        
         public IActionResult Signup()
