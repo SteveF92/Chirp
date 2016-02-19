@@ -18,7 +18,6 @@ using Microsoft.AspNet.Authorization;
 
 namespace Chirp.Controllers.Api
 {
-    [Route("auth/session")]
     public class SessionController : Controller
     {
         private SignInManager<ChirpUser> m_signInManager;
@@ -32,8 +31,30 @@ namespace Chirp.Controllers.Api
             m_logger = a_logger;
         }
 
+        [HttpGet]
+        public async Task<JsonResult> CurrentUser()
+        {
+            try
+            {
+                if (User.Identity.IsAuthenticated)
+                {
+                    var user = await m_userManager.FindByIdAsync(User.GetUserId());
+                    return Json(Mapper.Map<ChirpUserViewModel>(user));
+                }
+
+                Response.StatusCode = (int)HttpStatusCode.Forbidden;
+                return Json(new { Message = "You are not logged in" });
+            }
+            catch (Exception ex)
+            {
+                m_logger.LogError("Failed to get current user", ex);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { Message = ex.Message });
+            }
+        }
+
         [HttpPost("")]
-        public async Task<JsonResult> Post([FromBody]LoginViewModel vm, string returnUrl)
+        public async Task<JsonResult> Login([FromBody]LoginViewModel vm, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -69,38 +90,17 @@ namespace Chirp.Controllers.Api
             return Json(new { url = "" });
         }
 
-        [HttpGet]
-        public async Task<JsonResult> Get()
-        {
-            try
-            {
-                if (User.Identity.IsAuthenticated)
-                {
-                    var user = await m_userManager.FindByIdAsync(User.GetUserId());
-                    return Json(Mapper.Map<ChirpUserViewModel>(user));
-                }
-
-                Response.StatusCode = (int)HttpStatusCode.Forbidden;
-                return Json(new { Message = "You are not logged in" });
-            }
-            catch (Exception ex)
-            {
-                m_logger.LogError("Failed to get current user", ex);
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(new { Message = ex.Message });
-            }
-        }
-
-        [HttpDelete]
-        public async Task<JsonResult> Delete()
+        [HttpPost]
+        public async Task<IActionResult> Signout()
         {
             if (User.Identity.IsAuthenticated)
             {
                 await m_signInManager.SignOutAsync();
-                return Json(new { url = "" });
             }
 
-            return Json(new { url = "" });
+            Response.StatusCode = (int)HttpStatusCode.SeeOther;
+
+            return RedirectToAction("Index", "App");
         }
     }
 }

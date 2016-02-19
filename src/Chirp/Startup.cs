@@ -138,10 +138,6 @@ namespace Chirp
             app.UseMvc(Configure =>
             {
                 Configure.MapRoute(
-                    name: "Api",
-                    template: "api/{action}/{id?}"
-                );
-                Configure.MapRoute(
                     name: "Default",
                     template: "{controller}/{action}/{id?}",
                     defaults: new { controller = "App", action = "Index" }
