@@ -15,12 +15,21 @@ namespace Chirp.Controllers.Web
 {
     public class AppController : Controller
     {
-        private IChirpRepository m_repository;
         private UserManager<ChirpUser> m_userManager;
 
         public AppController(UserManager<ChirpUser> a_userManager)
         {
             m_userManager = a_userManager;
+        }
+
+        public IActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "App");
+            }
+
+            return View();
         }
 
         [Authorize]

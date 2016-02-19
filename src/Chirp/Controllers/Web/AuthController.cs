@@ -27,15 +27,6 @@ namespace Chirp.Controllers.Web
             m_userManager = a_userManager;
         }
 
-        public IActionResult Login()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "App");
-            }
-
-            return View();
-        }
 
        
         public IActionResult Signup()
@@ -53,8 +44,6 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
-        // GET: /Account/ConfirmEmail
-        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> EmailConfirmed(string userId, string code)
         {

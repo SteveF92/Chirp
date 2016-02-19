@@ -34,7 +34,7 @@
             vm.errorMessage = "";
             vm.isBusy = true;
 
-            $http.get("/auth/currentuser")
+            $http.get("/auth/session")
             .then(function (response) {
                 //Success
                 vm.newChirpPost.user = response.data;

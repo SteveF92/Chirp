@@ -17,7 +17,7 @@
             vm.errorMessage = "";
             vm.isBusy = true;
 
-            $http.post("/auth/login", vm.credentials)
+            $http.post("/auth/session", vm.credentials)
                 .then(function (response) {
                     //Success
                     if (typeof response.data.error === 'undefined') {

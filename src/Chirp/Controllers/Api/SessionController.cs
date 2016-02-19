@@ -92,14 +92,15 @@ namespace Chirp.Controllers.Api
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete()
+        public async Task<JsonResult> Delete()
         {
             if (User.Identity.IsAuthenticated)
             {
                 await m_signInManager.SignOutAsync();
+                return Json(new { url = "" });
             }
 
-            return RedirectToAction("Index", "App");
+            return Json(new { url = "" });
         }
     }
 }
