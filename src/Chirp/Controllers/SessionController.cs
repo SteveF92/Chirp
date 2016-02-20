@@ -16,7 +16,7 @@ using Microsoft.AspNet.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Chirp.Controllers.Api
+namespace Chirp.Controllers
 {
     public class SessionController : Controller
     {
