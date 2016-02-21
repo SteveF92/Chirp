@@ -17,7 +17,7 @@
             vm.errorMessage = "";
             vm.isBusy = true;
 
-            $http.post("/auth/signup", vm.newUser)
+            $http.post("/api/user", vm.newUser)
                 .then(function (response) {
                     //Success
                     if (typeof response.data.error === 'undefined') {
