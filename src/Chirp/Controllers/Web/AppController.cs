@@ -48,7 +48,7 @@ namespace Chirp.Controllers.Web
             }
 
             var userViewModel = Mapper.Map<ChirpUserViewModel>(userFound);
-            return View(userViewModel);
+            return View("User", userViewModel);
         }
 
         [Authorize]
