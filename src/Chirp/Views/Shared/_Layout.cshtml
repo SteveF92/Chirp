@@ -12,8 +12,8 @@
     <div id="sidebar">
         @if (User.Identity.IsAuthenticated)
         {
-            <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
-            <span id="username">
+            <div class="user-profile">
+                <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
                 <a href="~/app/user/@User.Identity.Name">
                     @User.Identity.Name
                 </a>
@@ -23,7 +23,7 @@
                 <form class="logout-form" action="session/Signout" method="post">
                     <button type="submit" class="btn btn-sm btn-info">Logout</button>
                 </form>
-            </span>
+            </div>
         }
         
         <ul class="nav">
