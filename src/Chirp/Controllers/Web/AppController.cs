@@ -14,6 +14,7 @@ using System.Net;
 
 namespace Chirp.Controllers.Web
 {
+    [Route("[action]")]
     public class AppController : Controller
     {
         private UserManager<ChirpUser> m_userManager;
@@ -24,25 +25,22 @@ namespace Chirp.Controllers.Web
         }
 
         [Authorize]
-        [Route("")]
+        [Route("/")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Route("about")]
         public IActionResult About()
         {
             return View();
         }
 
-        [Route("contact")]
         public IActionResult Contact()
         {
             return View();
         }
 
-        [Route("user/{userName}")]
         public async Task<IActionResult> Users(string userName)
         {
             var userFound = await m_userManager.FindByNameAsync(userName);
@@ -55,7 +53,6 @@ namespace Chirp.Controllers.Web
         }
 
         [Authorize]
-        [Route("myaccount")]
         public async Task<IActionResult> MyAccount()
         {
             var user = await m_userManager.FindByIdAsync(User.GetUserId());

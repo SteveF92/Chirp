@@ -18,6 +18,7 @@ using Microsoft.AspNet.Authorization;
 
 namespace Chirp.Controllers.Web
 {
+    [Route("[action]")]
     public class AuthController : Controller
     {
         private UserManager<ChirpUser> m_userManager;
@@ -37,7 +38,6 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
-       
         public IActionResult Signup()
         {
             if (User.Identity.IsAuthenticated)
