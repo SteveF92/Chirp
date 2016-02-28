@@ -2,8 +2,6 @@
     ViewBag.Title = "About";
 }
 
-<h1>About</h1>
-
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/signalr/jquery.signalR.min.js"></script>
@@ -14,6 +12,7 @@
 }
 
 <div ng-app="application" ng-controller="chirpsController as vm">
+    <h1>About</h1>
     <h1 id="myTest" ng-bind="vm.test"></h1>
     <form id="form1">
         <div class="ediv">
