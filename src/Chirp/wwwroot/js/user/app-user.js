@@ -2,7 +2,7 @@
     "use strict";
 
     //Creating the module
-    angular.module("app-user", []);
+    angular.module("app-user", ["chirpControls"]);
 
     // SignalR's hub object.
     var chirpPostHub = $.connection.chirpPostHub;
