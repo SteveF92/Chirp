@@ -9,6 +9,8 @@
     <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/js/chirps/app-chirps.js"></script>
     <script src="~/js/chirps/chirpsController.js"></script>
+    <script src="~/js/directives/chirpControls.js"></script>
+    <script src="~/js/directives/simpleControls.js"></script>
 }
 
 <div class="row" ng-app="app-chirps">
@@ -28,17 +30,11 @@
             </form>
         </div>
 
-        <div class="clearfix">
-            <div ng-show="vm.isBusy" class="text-center"><i class="fa fa-refresh fa-spin"></i> Loading...</div>
-        </div>
+        <wait-cursor ng-show="vm.isBusy"></wait-cursor>
 
         <div ng-show="vm.firstLoad" id="post-stream" class="container-fluid" ng-cloak>
             <div class='post' ng-repeat="chirpPost in vm.chirpPosts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
-                <p ng-bind="chirpPost.message"></p>
-                <small> Posted by 
-                    <a href="users/{{chirpPost.user.userName}}" ng-bind-template="@@{{chirpPost.user.userName}}"> </a>
-                </small>
-                <small class="pull-right" ng-bind="chirpPost.postTime | date:'medium'"></small>
+                <chirp-post-item chirp-post="chirpPost"></chirp-post-item>
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Net;
 
 namespace Chirp.Controllers.Web
 {
@@ -38,22 +39,19 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
+        [Route("app/user/{userName}")]
         public async Task<IActionResult> Users(string userName)
         {
-            var path = this.HttpContext.Request.Path.Value;
-            var userNameFromPath = path.Substring(path.LastIndexOf('/') + 1);
-
-            var userFound = await m_userManager.FindByNameAsync(userNameFromPath);
+            var userFound = await m_userManager.FindByNameAsync(userName);
             if (userFound == null)
             {
-                return Json(new { error = "Username or password incorrect" });
+                return new HttpNotFoundResult();
             }
-
             var userViewModel = Mapper.Map<ChirpUserViewModel>(userFound);
-            return View(userViewModel);
+            return View("User", userViewModel);
         }
 
-        [Authorize]
+[Authorize]
         public async Task<IActionResult> MyAccount()
         {
             var user = await m_userManager.FindByIdAsync(User.GetUserId());

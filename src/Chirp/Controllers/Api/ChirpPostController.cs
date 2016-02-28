@@ -13,6 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Chirp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Chirp.Controllers.Api
 {
@@ -23,18 +24,28 @@ namespace Chirp.Controllers.Api
         private ILogger m_logger;
         private IChirpRepository m_repository;
         private IConnectionManager m_connectionManager;
+        private UserManager<ChirpUser> m_userManager;
 
-        public ChirpPostController(IChirpRepository a_repository, ILogger<ChirpPostController> a_logger, IConnectionManager a_connectionManager)
+        public ChirpPostController(IChirpRepository a_repository, ILogger<ChirpPostController> a_logger, IConnectionManager a_connectionManager, UserManager<ChirpUser> a_userManager)
         {
             m_repository = a_repository;
             m_logger = a_logger;
             m_connectionManager = a_connectionManager;
+            m_userManager = a_userManager;
         }
 
         [HttpGet("")]
         public JsonResult Get()
         {
             var results = Mapper.Map<IEnumerable<ChirpPostViewModel>>(m_repository.GetAllPosts());
+            return Json(results);
+        }
+
+        [Route("{userName}")]
+        public async Task<JsonResult> Get(string userName)
+        {
+            var user = await m_userManager.FindByNameAsync(userName);
+            var results = Mapper.Map<IEnumerable<ChirpPostViewModel>>(m_repository.GetAllPostsByUserId(user.Id));
             return Json(results);
         }
 

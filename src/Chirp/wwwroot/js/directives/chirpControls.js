@@ -1,17 +1,16 @@
 ﻿(function () {
     "use strict";
 
-    angular.module("simpleControls", [])
-        .directive("waitCursor", waitCursor)
-        .directive("compareTo", compareTo);
+    angular.module("chirpControls", [])
+        .directive("chirpPostItem", chirpPostItem);
 
-    function waitCursor() {
+    function chirpPostItem() {
         return {
             scope: {
-                show: "=displayWhen"
+                chirpPost: "=chirpPost"
             },
             restrict: "E",
-            templateUrl: "/views/waitCursor.html"
+            templateUrl: "/views/chirpPostItem.html"
         };
     }
 

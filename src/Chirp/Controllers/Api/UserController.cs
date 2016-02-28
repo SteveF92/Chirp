@@ -34,6 +34,14 @@ namespace Chirp.Controllers.Api
             m_emailSender = a_emailSender;
         }
 
+        [Route("{userName}")]
+        public async Task<JsonResult> Get(string userName)
+        {
+            var user = await m_userManager.FindByNameAsync(userName);
+            var results = Mapper.Map<ChirpUserViewModel>(await m_userManager.FindByIdAsync(user.Id));
+            return Json(results);
+        }
+
         [HttpPost]
         public async Task<JsonResult> Post([FromBody]SignupViewModel vm, string returnUrl)
         {

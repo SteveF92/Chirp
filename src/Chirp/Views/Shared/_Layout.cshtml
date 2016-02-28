@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Chirp - @ViewBag.Title</title>
+    <base href="/">
     <meta charset="utf-8" />
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
@@ -12,9 +13,9 @@
     <div id="sidebar">
         @if (User.Identity.IsAuthenticated)
         {
-            <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
-            <span id="username">
-                <a asp-controller="App" asp-action="Users" asp-route-id="@User.Identity.Name">
+            <div class="user-profile">
+                <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
+                <a href="~/app/user/@User.Identity.Name">
                     @User.Identity.Name
                 </a>
                 <a asp-controller="App" asp-action="MyAccount">
@@ -23,7 +24,7 @@
                 <form class="logout-form" action="session/Signout" method="post">
                     <button type="submit" class="btn btn-sm btn-info">Logout</button>
                 </form>
-            </span>
+            </div>
         }
         
         <ul class="nav">
@@ -32,13 +33,11 @@
             <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
         </ul>
         
-</div>
+    </div>
 
     <div id="wrapper" class="container-fluid">
         <div id="main">
-            <div>
                 @RenderBody()
-            </div>
         </div>
     </div>
     @RenderSection("Scripts", false)
