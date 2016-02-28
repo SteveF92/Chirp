@@ -1,6 +1,6 @@
 ﻿<p ng-bind="chirpPost.message"></p>
 <small>
     Posted by
-    <a href="app/user/{{chirpPost.user.userName}}" ng-bind-template="@{{chirpPost.user.userName}}"> </a>
+    <a href="/user/{{chirpPost.user.userName}}" ng-bind-template="@{{chirpPost.user.userName}}"> </a>
 </small>
 <small class="pull-right" ng-bind="chirpPost.postTime | date:'medium'"></small>
