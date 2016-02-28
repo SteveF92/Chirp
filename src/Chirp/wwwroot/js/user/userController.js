@@ -11,43 +11,60 @@
         vm.pageUserName = pageUserName;
         vm.chirpPosts = [];
         vm.errorMessage = "";
+        vm.firstLoad = false;
+        vm.gotUser = false;
+        vm.gotChirps = false;
 
         vm.getUser = function () {
-            vm.isBusy = true;
+            vm.isBusyUser = true;
             var userUrl = "/api/user/";
             userUrl = userUrl.concat(vm.pageUserName);
             $http.get(userUrl)
             .then(function (response) {
                 //Success
                 angular.copy(response.data, vm.user);
+                vm.gotUser = true;
             }, function (error) {
                 //Failure
                 vm.errorMessage = "Failed to get User Info: " + error;
             })
             .finally(function () {
-                vm.isBusy = false;
+                vm.isBusyUser = false;
             });
         };
 
         vm.getChirps = function () {
-            vm.isBusy = true;
+            vm.isBusyChirps = true;
             var userUrl = "/api/chirpposts/";
             userUrl = userUrl.concat(vm.pageUserName);
             $http.get(userUrl)
             .then(function (response) {
                 //Success
                 angular.copy(response.data, vm.chirpPosts);
+                vm.gotChirps = true;
             }, function (error) {
                 //Failure
                 vm.errorMessage = "Failed to get Chirps: " + error;
             })
             .finally(function () {
-                vm.isBusy = false;
+                vm.isBusyChirps = false;
             });
         };
 
         vm.getUser();
         vm.getChirps();
+
+        $scope.$watch("vm.gotChirps", function () {
+            if (vm.gotUser === true) {
+                vm.firstLoad = true;
+            }
+        });
+
+        $scope.$watch("vm.gotUser", function () {
+            if (vm.gotChirps === true) {
+                vm.firstLoad = true;
+            }
+        });
 
         // Method which receives data.
         chirpPostHub.client.refreshChirps = function () {

@@ -19,7 +19,7 @@
             <span ng-bind="vm.errorMessage"></span>
         </div>
         <form novalidate name="form" ng-submit="vm.signup()" role="form">
-            <wait-cursor display-when="vm.isBusy"></wait-cursor>
+            <wait-cursor ng-show="vm.isBusy"></wait-cursor>
             <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" class="form-control" ng-model="vm.newUser.Email" required />

@@ -1,4 +1,4 @@
-﻿@model Chirp.ViewModels.ChirpUserViewModel
+﻿﻿@model Chirp.ViewModels.ChirpUserViewModel
 @{
     ViewBag.Title = $"{Model.UserName} - User Page";
 }
@@ -16,20 +16,18 @@
     <script src="~/js/user/app-user.js"></script>
     <script src="~/js/user/userController.js"></script>
     <script src="~/js/directives/chirpControls.js"></script>
-
+    <script src="~/js/directives/simpleControls.js"></script>
 }
 
-<div class="row" ng-app="app-user">
-    <div class="col-md-12" ng-controller="userController as vm">
-        <h1 ng-bind-template="User: {{vm.user.userName}}"/>
-        <h5 ng-bind-template="Email: {{vm.user.email}}"/>
+<div class="row col-md-12" ng-app="app-user" ng-controller="userController as vm">
+    <div ng-show="vm.firstLoad">
+        <h1 ng-bind-template="User: {{vm.user.userName}}"></h1>
+        <h5 ng-bind-template="Email: {{vm.user.email}}"></h5>
+    </div>
 
-        <div class="clearfix">
-            <div ng-show="vm.isBusy" class="text-center"><i class="fa fa-refresh fa-spin"></i> Loading...</div>
-        </div>
-
+    <div ng-show="vm.firstLoad" ng-cloak>
         <h3>Chirps</h3>
-        <div id="post-stream" class="container-fluid" ng-cloak>
+        <div id="post-stream" class="container-fluid">
             <div class='post' ng-repeat="chirpPost in vm.chirpPosts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
                 <chirp-post-item chirp-post="chirpPost"></chirp-post-item>
             </div>
