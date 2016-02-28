@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Chirp - @ViewBag.Title</title>
+    <base href="/">
     <meta charset="utf-8" />
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
@@ -36,9 +37,7 @@
 
     <div id="wrapper" class="container-fluid">
         <div id="main">
-            <div>
                 @RenderBody()
-            </div>
         </div>
     </div>
     @RenderSection("Scripts", false)
