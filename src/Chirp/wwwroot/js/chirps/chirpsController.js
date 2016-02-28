@@ -21,7 +21,7 @@
                 angular.copy(response.data, vm.chirpPosts);
             }, function (error) {
                 //Failure
-                vm.errorMessage = "Failed to get Chirps: " + error;
+                vm.errorMessage = "Failed to get Chirps: " + error.data.message;
             })
             .finally(function () {
                 vm.isBusy = false;
@@ -34,30 +34,18 @@
             vm.errorMessage = "";
             vm.isBusy = true;
 
-            $http.get("/session/currentuser")
-            .then(function (response) {
-                //Success
-                vm.newChirpPost.user = response.data;
-
-                $http.post("/api/chirpposts", vm.newChirpPost)
-                    .then(function (response) {
-                        //Success
-                        vm.getChirps();
-                        vm.newChirpPost.message = "";
-                    }, function (error) {
-                        //Failure
-                        vm.errorMessage = "Failed to get Chirps: " + error;
-                    })
-                    .finally(function () {
-                        vm.isBusy = false;
-                    });
-            }, function (error) {
-                //Failure
-                vm.errorMessage = "Failed to get current user: " + error;
-            })
-            .finally(function () {
-                vm.isBusy = false;
-            });
+            $http.post("/api/chirpposts", vm.newChirpPost)
+                .then(function (response) {
+                    //Success
+                    vm.getChirps();
+                    vm.newChirpPost.message = "";
+                }, function (error) {
+                    //Failure
+                    vm.errorMessage = "Failed to post Chirp: " + error.data.message;
+                })
+                .finally(function () {
+                    vm.isBusy = false;
+                });
         };
 
         // Method which receives data.
