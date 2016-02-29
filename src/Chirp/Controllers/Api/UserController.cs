@@ -107,5 +107,33 @@ namespace Chirp.Controllers.Api
             var emailBody = $"Please confirm your account by clicking this link: <br/> <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
             await m_emailSender.SendEmailAsync(a_user.Email, "Confirm your account", emailBody);
         }
+
+        [HttpPost("ChangePassword")]
+        public async Task<JsonResult> ChangePassword([FromBody]ChangePasswordViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { error = "Please fill out all fields." });
+            }
+
+            if (vm.NewPassword != vm.ConfirmPassword)
+            {
+                return Json(new { error = "Passwords do not match." });
+            }
+
+            var user = await m_userManager.FindByIdAsync(User.GetUserId());
+            if (user != null)
+            {
+                var result = await m_userManager.ChangePasswordAsync(user, vm.CurrentPassword, vm.NewPassword);
+                if (result.Succeeded)
+                {
+                    await m_signInManager.SignInAsync(user, isPersistent: false);
+                    m_logger.LogInformation(3, "User changed their password successfully.");
+                    return Json(new { url = "myaccount" });
+                }
+                return Json(new { error = "Current Password is incorrect." });
+            }
+            return Json(new { error = "Unknown Error." });
+        }
     }
 }
