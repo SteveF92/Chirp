@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Chirp.Services
+namespace Chirp.Services.LowLevel
 {
     public class AuthMessageSenderOptions
     {

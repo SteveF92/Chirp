@@ -13,6 +13,7 @@ using System.Net;
 using Chirp.Models;
 using Chirp.Services;
 using Microsoft.AspNet.Authorization;
+using Chirp.Services.LowLevel;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -86,12 +87,25 @@ namespace Chirp.Controllers.Api
                 return Json(new { error = "Unknown sign up error." });
             }
 
-            var code = await m_userManager.GenerateEmailConfirmationTokenAsync(newUser);
-            var callbackUrl = Url.Action("EmailConfirmed", "Auth", new { userId = newUser.Id, code = code }, protocol: HttpContext.Request.Scheme);
-            var emailBody = $"Please confirm your account by clicking this link: <br/> <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
-            await m_emailSender.SendEmailAsync(newUser.Email, "Confirm your account", emailBody);
+            await SendConfirmationEmail(newUser);
 
             return Json(new { url = "confirmemailsent" });
+        }
+
+        [HttpPost ("ResendConfirmationEmail")]
+        public async Task<IActionResult> ResendConfirmationEmail()
+        {
+            var user = await m_userManager.FindByIdAsync(User.GetUserId());
+            await SendConfirmationEmail(user);
+            return RedirectToAction("ConfirmEmailSent", "Auth");
+        }
+
+        public async Task SendConfirmationEmail(ChirpUser a_user)
+        {
+            var code = await m_userManager.GenerateEmailConfirmationTokenAsync(a_user);
+            var callbackUrl = Url.Action("EmailConfirmed", "Auth", new { userId = a_user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+            var emailBody = $"Please confirm your account by clicking this link: <br/> <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
+            await m_emailSender.SendEmailAsync(a_user.Email, "Confirm your account", emailBody);
         }
     }
 }

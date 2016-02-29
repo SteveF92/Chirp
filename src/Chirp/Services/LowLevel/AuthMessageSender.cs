@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Chirp.Services
+namespace Chirp.Services.LowLevel
 {
     public class AuthMessageSender : IEmailSender, ISmsSender
     {

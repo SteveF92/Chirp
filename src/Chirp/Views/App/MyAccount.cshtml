@@ -27,7 +27,10 @@
                 else
                 {
                     <td>
-                        Unconfirmed
+                        <span>Unconfirmed</span>
+                        <form class="resend-email" action="api/user/ResendConfirmationEmail" method="post">
+                            <button type="submit" class="btn btn-sm btn-info">Resend Confirmation Email</button>
+                        </form>
                     </td>
                 }
 

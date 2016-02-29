@@ -7,4 +7,11 @@
     <p>
         A confirmation email has been sent.
     </p>
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <p>
+            Please <a asp-controller="Auth" asp-action="Login">Click here to Log in</a>.
+        </p>
+    }
 </div>
