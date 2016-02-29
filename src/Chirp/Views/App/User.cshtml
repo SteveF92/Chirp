@@ -23,9 +23,15 @@
 
     <div ng-show="vm.firstLoad" ng-cloak>
         <h3>Chirps</h3>
-        <div id="post-stream" class="container-fluid">
+        <div id="post-stream" class="container-fluid" ng-show="vm.hasChirps()">
             <div class='post' ng-repeat="chirpPost in vm.chirpPosts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
                 <chirp-post-item chirp-post="chirpPost"></chirp-post-item>
+            </div>
+        </div>
+        <div ng-hide="vm.hasChirps()">
+            <div class="alert alert-info" role="alert">
+                <i class="fa fa-exclamation-triangle"></i>
+                <span>This user has no chips.</span>
             </div>
         </div>
     </div>

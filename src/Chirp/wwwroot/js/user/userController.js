@@ -66,6 +66,13 @@
             }
         });
 
+        vm.hasChirps = function () {
+            if (vm.chirpPosts > 0) {
+                return true;
+            }
+            return false;
+        };
+
         // Method which receives data.
         chirpPostHub.client.refreshChirps = function () {
             // Method which handles messages.
