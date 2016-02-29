@@ -1,11 +1,18 @@
-input[type=text], input[type=password], textarea {
-	width: 150px;
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
 }
 
-#main {
-	background-color: #eee;
-	padding: 4px;
-	margin: 0;
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+
+input[type=text], input[type=password], textarea {
+	width: 150px;
 }
 
 #footer{
@@ -23,21 +30,6 @@ input[type=text], input[type=password], textarea {
 	margin: 0;
 }
 
-#sidebar{
-	background: #2a2c36;
-	color: #eee;
-	position: fixed;
-	height: 100%;
-	width: 250px;
-	overflow: hidden;
-	left: 0;
-	margin: 0;
-}
-
-#wrapper{
-	margin: 0 0 0 250px;
-}
-
 #chirp-form {
 	background-color: #68d8f2;
 	border: solid medium;
@@ -45,6 +37,7 @@ input[type=text], input[type=password], textarea {
 
 	padding: 4px;
 	margin: 0;
+    margin-top: 5px;
 }
 
 #post-stream {
