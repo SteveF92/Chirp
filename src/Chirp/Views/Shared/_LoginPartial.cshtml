@@ -5,7 +5,17 @@
     <form asp-controller="Session" asp-action="Signout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-controller="App" asp-action="MyAccount" title="Manage"> @User.GetUserName()</a>
+                <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
+            </li>
+            <li>
+                <a href="/user/@User.Identity.Name">
+                    @User.Identity.Name
+                </a>
+            </li>
+            <li>
+                <a asp-controller="App" asp-action="MyAccount">
+                    <i class="fa fa-cog fa-lg"></i>
+                </a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Log off</button>
