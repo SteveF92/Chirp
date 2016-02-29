@@ -13,6 +13,7 @@ using System.Net;
 using Chirp.Models;
 using Chirp.Services;
 using Microsoft.AspNet.Authorization;
+using Chirp.Services.LowLevel;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -86,12 +87,53 @@ namespace Chirp.Controllers.Api
                 return Json(new { error = "Unknown sign up error." });
             }
 
-            var code = await m_userManager.GenerateEmailConfirmationTokenAsync(newUser);
-            var callbackUrl = Url.Action("EmailConfirmed", "Auth", new { userId = newUser.Id, code = code }, protocol: HttpContext.Request.Scheme);
-            var emailBody = $"Please confirm your account by clicking this link: <br/> <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
-            await m_emailSender.SendEmailAsync(newUser.Email, "Confirm your account", emailBody);
+            await SendConfirmationEmail(newUser);
 
             return Json(new { url = "confirmemailsent" });
+        }
+
+        [HttpPost ("ResendConfirmationEmail")]
+        public async Task<IActionResult> ResendConfirmationEmail()
+        {
+            var user = await m_userManager.FindByIdAsync(User.GetUserId());
+            await SendConfirmationEmail(user);
+            return RedirectToAction("ConfirmEmailSent", "Auth");
+        }
+
+        public async Task SendConfirmationEmail(ChirpUser a_user)
+        {
+            var code = await m_userManager.GenerateEmailConfirmationTokenAsync(a_user);
+            var callbackUrl = Url.Action("EmailConfirmed", "Auth", new { userId = a_user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+            var emailBody = $"Please confirm your account by clicking this link: <br/> <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
+            await m_emailSender.SendEmailAsync(a_user.Email, "Confirm your account", emailBody);
+        }
+
+        [HttpPost("ChangePassword")]
+        public async Task<JsonResult> ChangePassword([FromBody]ChangePasswordViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { error = "Please fill out all fields." });
+            }
+
+            if (vm.NewPassword != vm.ConfirmPassword)
+            {
+                return Json(new { error = "Passwords do not match." });
+            }
+
+            var user = await m_userManager.FindByIdAsync(User.GetUserId());
+            if (user != null)
+            {
+                var result = await m_userManager.ChangePasswordAsync(user, vm.CurrentPassword, vm.NewPassword);
+                if (result.Succeeded)
+                {
+                    await m_signInManager.SignInAsync(user, isPersistent: false);
+                    m_logger.LogInformation(3, "User changed their password successfully.");
+                    return Json(new { url = "myaccount" });
+                }
+                return Json(new { error = "Current Password is incorrect." });
+            }
+            return Json(new { error = "Unknown Error." });
         }
     }
 }

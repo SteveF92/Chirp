@@ -14,6 +14,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Chirp.Models;
 using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace Chirp.Controllers.Api
 {
@@ -50,14 +51,21 @@ namespace Chirp.Controllers.Api
         }
 
         [HttpPost("")]
-        public JsonResult Post([FromBody]ChirpPostViewModel vm)
+        public async Task<JsonResult> Post([FromBody]ChirpPostViewModel vm)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     var newPost = Mapper.Map<ChirpPost>(vm);
+                    var user = await m_userManager.FindByIdAsync(User.GetUserId());
+                    if (!user.EmailConfirmed)
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return Json(new { Message = "You must confirm your email address before you can post."});
+                    }
 
+                    newPost.User = user;
                     newPost.PostTime = DateTimeOffset.UtcNow;
 
                     //Save to the database
@@ -71,7 +79,7 @@ namespace Chirp.Controllers.Api
                         IHubContext context = m_connectionManager.GetHubContext<ChirpPostHub>();
                         context.Clients.All.RefreshChirps();
 
-                        return Json(Mapper.Map<ChirpPostViewModel>(newPost));
+                        return Json(new { Message = "Success" });
                     }
                 }
 
