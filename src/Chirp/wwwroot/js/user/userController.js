@@ -67,7 +67,7 @@
         });
 
         vm.hasChirps = function () {
-            if (vm.chirpPosts > 0) {
+            if (vm.chirpPosts.length > 0) {
                 return true;
             }
             return false;
