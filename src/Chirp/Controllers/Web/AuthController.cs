@@ -68,5 +68,10 @@ namespace Chirp.Controllers.Web
             var result = await m_userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "EmailConfirmed" : "Error");
         }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
     }
 }
