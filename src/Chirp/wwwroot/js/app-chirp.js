@@ -1,9 +1,8 @@
-﻿(function () {
+(function () {
     "use strict";
-
+   
     //Creating the module
-    angular.module("app-user", ["chirpControls", "simpleControls"]);
-
+    angular.module("app-chirp", ["chirpControls", "simpleControls"]);
 
     // SignalR's hub object.
     var chirpPostHub = $.connection.chirpPostHub;
@@ -13,5 +12,5 @@
         $.connection.hub.start();
     });
 
-    angular.module('app-user').value('chirpPostHub', chirpPostHub);
+    angular.module('app-chirp').value('chirpPostHub', chirpPostHub);
 })();

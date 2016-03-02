@@ -4,12 +4,10 @@
 }
 
 @section Scripts{
-    <script src="~/lib/angular/angular.min.js"></script>
-    <script src="~/js/login/app-login.js"></script>
-    <script src="~/js/login/loginController.js"></script>
+    <script src="~/js/controllers/loginController.js"></script>
 }
 
-<div class="row" ng-app="app-login">
+<div class="row">
     <div class="col-md-6 col-md-offset-3" ng-controller="loginController as vm">
         <h3>Login</h3>
         <div class="alert alert-danger" role="alert" ng-show="vm.errorMessage" ng-cloak>
@@ -17,7 +15,7 @@
             <span ng-bind="vm.errorMessage"></span>
         </div>
         <form novalidate name="form" ng-submit="vm.login()" role="form">
-            <wait-cursor display-when="vm.isBusy"></wait-cursor>
+            <wait-cursor ng-show="vm.isBusy"></wait-cursor>
             <div class="form-group">
                 <label for="username">Email/Username</label>
                 <input type="text" name="username" id="username" class="form-control" ng-model="vm.credentials.Username" required />
@@ -30,7 +28,5 @@
                 <button type="submit" ng-disabled="form.$invalid || vm.isBusy" class="btn btn-primary">Login</button>
             </div>
         </form>
-
-        <a asp-controller="Auth" asp-action="Signup">Signup</a>
     </div>
 </div>

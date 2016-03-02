@@ -2,7 +2,7 @@
     "use strict";
 
     //Getting the existing module
-    angular.module("app-chirps")
+    angular.module("app-chirp")
         .controller("chirpsController", chirpsController);
 
     function chirpsController($http, $scope, chirpPostHub) {

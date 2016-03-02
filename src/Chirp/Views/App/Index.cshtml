@@ -3,17 +3,10 @@
 }
 
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/lib/angular/angular.min.js"></script>
-    <script src="~/js/chirps/app-chirps.js"></script>
-    <script src="~/js/chirps/chirpsController.js"></script>
-    <script src="~/js/directives/chirpControls.js"></script>
-    <script src="~/js/directives/simpleControls.js"></script>
+    <script src="~/js/controllers/chirpsController.js"></script>
 }
 
-<div ng-app="app-chirps" ng-controller="chirpsController as vm">
+<div ng-controller="chirpsController as vm">
     <div class="alert alert-danger" role="alert" ng-show="vm.errorMessage" ng-cloak>
         <i class="fa fa-exclamation-triangle"></i>
         <span ng-bind="vm.errorMessage"></span>

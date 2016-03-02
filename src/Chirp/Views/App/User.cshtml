@@ -6,16 +6,10 @@
     var pageUserName = "@Model.UserName";
 </script>
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/lib/angular/angular.min.js"></script>
-    <script src="~/js/user/app-user.js"></script>
-    <script src="~/js/user/userController.js"></script>
-    <script src="~/js/directives/chirpControls.js"></script>
-    <script src="~/js/directives/simpleControls.js"></script>
+    <script src="~/js/controllers/userController.js"></script>
 }
-<div ng-app="app-user" ng-controller="userController as vm">
+
+<div ng-controller="userController as vm">
     <div ng-show="vm.firstLoad">
         <h1 ng-bind-template="User: {{vm.user.userName}}"></h1>
         <h5 ng-bind-template="Email: {{vm.user.email}}"></h5>

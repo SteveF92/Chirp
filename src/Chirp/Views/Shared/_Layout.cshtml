@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/js/directives/chirpControls.js"></script>
+    <script src="~/js/directives/simpleControls.js"></script>
+    <script src="~/js/app-chirp.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -32,7 +40,7 @@
         </div>
     </div>
 
-    <div class="container body-content">
+    <div class="container body-content" ng-app="app-chirp">
         @RenderBody()
         <hr/>
     </div>
