@@ -2,31 +2,4 @@
     ViewBag.Title = "About";
 }
 
-@section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/lib/angular/angular.min.js"></script>
-    <script src="~/js/about/application.js"></script>
-    <script src="~/js/about/chirpsController.js"></script>
-}
-
-<div ng-app="application" ng-controller="chirpsController as vm">
     <h1>About</h1>
-    <h1 id="myTest" ng-bind="vm.test"></h1>
-    <form id="form1">
-        <div class="ediv">
-            <input type="button" ng-click="vm.woop()"
-                   value="WOOP" />
-        </div>
-        <br />
-        <div class="mdiv">
-            <ul>
-                <li data-ng-model="message" data-ng-repeat="message in messagesList">
-                    {{message.dateString + ' ' + message.statusString}}
-                </li>
-            </ul>
-        </div>
-    </form>
-    <div data-ng-class="{updprocess: applicationBlocked}"></div>
-</div>
