@@ -3,7 +3,10 @@
 }
 
 @section Scripts {
+    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script src="~/js/controllers/chirpsController.js"></script>
+    <script src="~/js/chirpSignalR.js"></script>
 }
 
 <div ng-controller="chirpsController as vm">

@@ -6,7 +6,10 @@
     var pageUserName = "@Model.UserName";
 </script>
 @section Scripts {
+    <script src="~/lib/signalr/jquery.signalR.min.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script src="~/js/controllers/userController.js"></script>
+    <script src="~/js/chirpSignalR.js"></script>
 }
 
 <div ng-controller="userController as vm">
