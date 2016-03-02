@@ -5,7 +5,9 @@
     <form asp-controller="Session" asp-action="Signout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
+                <div class="profilepicture">
+                    <img src="~/img/prof.jpg" alt="Profile Picture" />
+                </div>
             </li>
             <li>
                 <a href="/user/@User.Identity.Name">

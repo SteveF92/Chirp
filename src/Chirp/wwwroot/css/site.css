@@ -18,8 +18,8 @@ body {
 .navbar-inverse {
 	background-color: #2e64b0;
 	border-color: #080808;
-    padding-bottom: 1px;
-	padding-bottom: 1px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 .nav.navbar-nav li a {
@@ -43,11 +43,21 @@ input[type=text], input[type=password], textarea {
 }
 
 .profilepicture{
-	max-width:50px;
-	border: 2px solid #080808;
-	padding: 1px;
-	margin: 0;
+	height:40px;
+	width:40px;
+	margin-top:5px;
+	position:relative;
+	border-radius: 10px;
+	overflow:hidden;
 }
+
+.profilepicture img{
+	position:absolute;
+	left:-50%; right:-50%; top:0;
+	margin:auto;
+	height:100%; width:auto;
+}
+
 
 #chirp-form {
 	background-color: #68d8f2;
