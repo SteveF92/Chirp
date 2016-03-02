@@ -2,5 +2,5 @@
     "use strict";
    
     //Creating the module
-    angular.module("app-chirp", ["chirpControls", "simpleControls"]);
+    angular.module("app-chirp", ["chirpControls", "simpleControls", "ui.bootstrap"]);
 })();
