@@ -49,6 +49,7 @@ namespace Chirp.Controllers.Web
 
         [Authorize]
         [Route("/user/{userName}")]
+        [ActionName("user")]
         public async Task<IActionResult> Users(string userName)
         {
             var userFound = await m_userManager.FindByNameAsync(userName);
