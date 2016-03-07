@@ -2,7 +2,7 @@
     "use strict";
 
     //Getting the existing module
-    angular.module("app-changePassword")
+    angular.module("app-chirp")
         .controller("changePasswordController", changePasswordController);
 
     function changePasswordController($http, $window) {

@@ -1,0 +1,16 @@
+﻿@model Chirp.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Signout";
+}
+
+<div>
+    <h1>Signout</h1>
+    <div class="col-md-6 col-md-offset-3">
+        <h3>Click below to sign out of Chirp:</h3>
+        <form asp-controller="Session" asp-action="Signout" method="post">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg">Signout</button>
+            </div>
+        </form>
+    </div>
+</div>

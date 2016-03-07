@@ -1,23 +1,23 @@
-﻿(function () {
+(function () {
     "use strict";
 
     //Getting the existing module
-    angular.module("app-login")
-        .controller("loginController", loginController);
+    angular.module("app-chirp")
+        .controller("signupController", signupController);
 
-    function loginController($http, $window) {
+    function signupController($http, $window) {
         var vm = this;
 
-        vm.credentials = {};
+        vm.newUser = {};
 
         vm.errorMessage = "";
         vm.isBusy = false;
 
-        vm.login = function () {
+        vm.signup = function () {
             vm.errorMessage = "";
             vm.isBusy = true;
 
-            $http.post("/session/login", vm.credentials)
+            $http.post("/api/user", vm.newUser)
                 .then(function (response) {
                     //Success
                     if (typeof response.data.error === 'undefined') {
@@ -30,7 +30,8 @@
                 }, function (error) {
                     //Failure
                     vm.errorMessage = error.message;
-                    vm.credentials.Password = "";
+                    vm.newUser.Password = "";
+                    vm.newUser.ConfirmPassword = "";
                 })
                 .finally(function () {
                     vm.isBusy = false;

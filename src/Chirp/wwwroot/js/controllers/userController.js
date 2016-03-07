@@ -2,7 +2,7 @@
     "use strict";
 
     //Getting the existing module
-    angular.module("app-user")
+    angular.module("app-chirp")
         .controller("userController", userController);
 
     function userController($http, $scope, chirpPostHub) {
@@ -67,7 +67,7 @@
         });
 
         vm.hasChirps = function () {
-            if (vm.chirpPosts > 0) {
+            if (vm.chirpPosts.length > 0) {
                 return true;
             }
             return false;

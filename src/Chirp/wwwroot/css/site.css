@@ -1,48 +1,70 @@
+html {
+  overflow-y: scroll;
+}
+
+body {
+	margin-top:10px;
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.navbar-inverse {
+	background-color: #2e64b0;
+	border-color: #080808;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+.nav.navbar-nav li a {
+	color: #eee;
+}
+
+.nav.navbar-nav.navbar-right li a {
+	color: #eee;
+}
+
+.navbar-inverse .navbar-brand{
+	color: #eee;
+}
+
+.navbar-inverse .btn-link{
+	color: #eee;
+}
+
 input[type=text], input[type=password], textarea {
 	width: 150px;
 }
 
-#main {
-	background-color: #eee;
-	padding: 4px;
-	margin: 0;
-}
-
-#footer{
-	background-color: #222;
-	color: #eee;
-	position: fixed;
-	width: 100%;
-	bottom: 0;
-}
-
 .profilepicture{
-	max-width:50px;
-	border: 1px solid #eee;
-	padding: 4px;
-	margin: 0;
+	height:35px !important;
+	width:35px !important;
+	max-width:35px !important;
+
+	margin-top:2px;
+	position:relative;
+	border-radius: 30px;
+	overflow:hidden;
 }
 
-#sidebar{
-	background: #2a2c36;
-	color: #eee;
-	position: fixed;
-	height: 100%;
-	width: 250px;
-	overflow: hidden;
-	left: 0;
-	margin: 0;
+.profilepicture img{
+	position:absolute;
+	left:-50%; right:-50%; top:0;
+	margin:auto;
+	height:100%; width:auto;
 }
 
-#wrapper{
-	margin: 0 0 0 250px;
-}
 
 #chirp-form {
 	background-color: #68d8f2;
 	border: solid medium;
 	border-color: #02c9f6;
-
 	padding: 4px;
 	margin: 0;
 }
@@ -85,6 +107,10 @@ input[type=text], input[type=password], textarea {
 	margin-top: 10px;
 	float: right;
 	margin-right: 30px;
+}
+
+#chirp-form textarea {
+   resize: vertical;
 }
 
 /* 

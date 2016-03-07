@@ -3,39 +3,31 @@
 }
 
 @section Scripts {
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/signalr/jquery.signalR.min.js"></script>
     <script src="~/signalr/hubs"></script>
-    <script src="~/lib/angular/angular.min.js"></script>
-    <script src="~/js/chirps/app-chirps.js"></script>
-    <script src="~/js/chirps/chirpsController.js"></script>
-    <script src="~/js/directives/chirpControls.js"></script>
-    <script src="~/js/directives/simpleControls.js"></script>
+    <script src="~/js/controllers/chirpsController.js"></script>
+    <script src="~/js/chirpSignalR.js"></script>
 }
 
-<div class="row" ng-app="app-chirps">
-    <div class="col-md-12" ng-controller="chirpsController as vm">
-        <div class="alert alert-danger" role="alert" ng-show="vm.errorMessage" ng-cloak>
-            <i class="fa fa-exclamation-triangle"></i>
-            <span ng-bind="vm.errorMessage"></span>
-        </div>
-        <div id="chirp-form" class="container-fluid">
-            <form novalidate name="newChirpPostForm" ng-Submit="vm.addChirpPost()">
-                <h4> @@@User.Identity.Name says </h4>
-                <div class="form-group">
-                    <textarea id="chirpPostText" class="form-control " ng-minlength="5" ng-maxlength="255" rows="3" placeholder="Say something"
-                              ng-model="vm.newChirpPost.message" required></textarea>
-                </div>
-                <input class="btn submit-btn pull-right" type="submit" value="Chirp!" ng-disabled="newChirpPostForm.$invalid" />
-            </form>
-        </div>
-
-        <wait-cursor ng-show="vm.isBusy"></wait-cursor>
-
-        <div ng-show="vm.firstLoad" id="post-stream" class="container-fluid" ng-cloak>
-            <div class='post' ng-repeat="chirpPost in vm.chirpPosts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
-                <chirp-post-item chirp-post="chirpPost"></chirp-post-item>
+<div ng-controller="chirpsController as vm">
+    <div class="alert alert-danger" role="alert" ng-show="vm.errorMessage" ng-cloak>
+        <i class="fa fa-exclamation-triangle"></i>
+        <span ng-bind="vm.errorMessage"></span>
+    </div>
+    <div id="chirp-form" class="container-fluid">
+        <form novalidate name="newChirpPostForm" ng-Submit="vm.addChirpPost()">
+            <h4> @@@User.Identity.Name says </h4>
+            <div class="form-group">
+                <textarea id="chirpPostText" class="form-control" ng-minlength="5" ng-maxlength="255" rows="3" placeholder="Say something"
+                            ng-model="vm.newChirpPost.message" required></textarea>
             </div>
+            <button type="submit" ng-disabled="newChirpPostForm.$invalid" class="btn submit-btn pull-right">Chirp!</button>
+        </form>
+    </div>
+
+    <div ng-show="vm.firstLoad" id="post-stream" class="container-fluid" ng-cloak>
+        <div class="post" ng-repeat="chirpPost in vm.chirpPosts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
+            <chirp-post-item chirp-post="chirpPost"></chirp-post-item>
         </div>
     </div>
 </div>

@@ -1,45 +1,74 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Chirp - @ViewBag.Title</title>
     <base href="/">
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/lib/Paradeiser/dist/min/paradeiser.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="~/js/directives/chirpControls.js"></script>
+    <script src="~/js/directives/simpleControls.js"></script>
+    <script src="~/js/app-chirp.js"></script>
 </head>
 <body>
-    <div id="sidebar">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <div class="user-profile">
-                <img class="profilepicture" src="~/img/prof.jpg" alt="Profile Picture" />
-                <a href="/user/@User.Identity.Name">
-                    @User.Identity.Name
-                </a>
-                <a asp-controller="App" asp-action="MyAccount">
-                    <i class="fa fa-cog"></i>
-                </a>
-                <form class="logout-form" action="session/Signout" method="post">
-                    <button type="submit" class="btn btn-sm btn-info">Logout</button>
-                </form>
+    <nav class="paradeiser">
+        <a asp-controller="App" asp-action="Index">
+            <img src="favicon.ico" alt="Logo" class="paradeiser_logo">
+            <span>Chirp</span>
+        </a>
+        <a asp-controller="App" asp-action="About">
+            <div class="paradeiser_icon_canvas">
+                <i class="fa fa-info-circle fa-3x"></i>
             </div>
-        }
-        
-        <ul class="nav">
-            <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
-            <li><a asp-controller="App" asp-action="About">About</a></li>
-            <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
-        </ul>
-        
-    </div>
+            <span>About</span>
+        </a>
 
-    <div id="wrapper" class="container-fluid">
-        <div id="main">
-                @RenderBody()
-        </div>
+        <a asp-controller="App" asp-action="Contact">
+            <div class="paradeiser_icon_canvas">
+                <i class="fa fa-question-circle fa-3x"></i>
+            </div>
+            <span>Contact</span>
+        </a>
+
+        <a href="/user/@User.Identity.Name">
+            <div class="paradeiser_icon_canvas">
+                <img src="~/img/prof.jpg" class="profilepicture paradeiser_logo" alt="Profile Picture" />
+            </div>
+            <span>@User.Identity.Name</span>
+        </a>
+
+        <!-- and include the dropdown aswell -->
+        <span class="paradeiser_dropdown">
+            <a href="#paradeiser-more" id="paradeiser-dropdown">
+                <div class="paradeiser_icon_canvas">
+                    <i class="fa fa-cog fa-3x"></i>
+                </div>
+                <span>More</span>
+            </a>
+            <ul class="paradeiser_children" id="paradeiser-more">
+                <li><a asp-controller="App" asp-action="MyAccount">Account Settings</a></li>
+                <li><a asp-controller="App" asp-action="Signout">Signout</a></li>
+                <li id="greybox"><a href="#!"></a></li>
+            </ul>
+        </span>
+    </nav>
+    
+    <div class="container body-content" ng-app="app-chirp">
+        @RenderBody()
+        <hr />
     </div>
     @RenderSection("Scripts", false)
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.min.js"></script>
+    <script src="~/js/navbar.js"></script>
 </body>
 </html>
