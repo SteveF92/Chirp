@@ -43,11 +43,13 @@ input[type=text], input[type=password], textarea {
 }
 
 .profilepicture{
-	height:40px;
-	width:40px;
-	margin-top:5px;
+	height:35px !important;
+	width:35px !important;
+	max-width:35px !important;
+
+	margin-top:2px;
 	position:relative;
-	border-radius: 10px;
+	border-radius: 30px;
 	overflow:hidden;
 }
 

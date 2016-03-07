@@ -41,6 +41,13 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
+        [Authorize]
+        public IActionResult Signout()
+        {
+            return View();
+        }
+
+        [Authorize]
         [Route("/user/{userName}")]
         public async Task<IActionResult> Users(string userName)
         {
