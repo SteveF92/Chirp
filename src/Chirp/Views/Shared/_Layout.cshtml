@@ -39,29 +39,48 @@
             <span>Contact</span>
         </a>
 
-        <a href="/user/@User.Identity.Name">
-            <div class="paradeiser_icon_canvas">
-                <img src="~/img/prof.jpg" class="profilepicture paradeiser_logo" alt="Profile Picture" />
-            </div>
-            <span>@User.Identity.Name</span>
-        </a>
+        @if (User.IsSignedIn())
+        {
+            <a href="/user/@User.Identity.Name">
+                <div class="paradeiser_icon_canvas">
+                    <img src="~/img/prof.jpg" class="profilepicture paradeiser_logo" alt="Profile Picture" />
+                </div>
+                <span>@User.Identity.Name</span>
+            </a>
 
         <!-- and include the dropdown aswell -->
-        <span class="paradeiser_dropdown">
-            <a href="#paradeiser-more" id="paradeiser-dropdown">
+            <span class="paradeiser_dropdown">
+                <a href="#paradeiser-more" id="paradeiser-dropdown">
+                    <div class="paradeiser_icon_canvas">
+                        <i class="fa fa-cog fa-3x"></i>
+                    </div>
+                    <span>More</span>
+                </a>
+                <ul class="paradeiser_children" id="paradeiser-more">
+                    <li><a asp-controller="App" asp-action="MyAccount">Account Settings</a></li>
+                    <li><a asp-controller="App" asp-action="Signout">Signout</a></li>
+                    <li id="greybox"><a href="#!"></a></li>
+                </ul>
+            </span>
+        }
+        else
+        {
+            <a asp-controller="Auth" asp-action="Login">
                 <div class="paradeiser_icon_canvas">
-                    <i class="fa fa-cog fa-3x"></i>
+                    <i class="fa fa-sign-in fa-3x"></i>
                 </div>
-                <span>More</span>
+                <span>Login</span>
             </a>
-            <ul class="paradeiser_children" id="paradeiser-more">
-                <li><a asp-controller="App" asp-action="MyAccount">Account Settings</a></li>
-                <li><a asp-controller="App" asp-action="Signout">Signout</a></li>
-                <li id="greybox"><a href="#!"></a></li>
-            </ul>
-        </span>
+
+            <a asp-controller="Auth" asp-action="Signup">
+                <div class="paradeiser_icon_canvas">
+                    <i class="fa fa-level-up fa-3x"></i>
+                </div>
+                <span>Signup</span>
+            </a>
+        }
     </nav>
-    
+
     <div class="container body-content" ng-app="app-chirp">
         @RenderBody()
         <hr />
