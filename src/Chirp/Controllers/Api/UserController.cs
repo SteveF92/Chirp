@@ -11,9 +11,8 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using Chirp.Models;
-using Chirp.Services;
 using Microsoft.AspNet.Authorization;
-using Chirp.Services.LowLevel;
+using SendGridMessenger;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
