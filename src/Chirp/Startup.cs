@@ -19,8 +19,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Authentication.Cookies;
 using System.Net;
 using Chirp.Models;
-using Chirp.Services;
-using Chirp.Services.LowLevel;
+using SendGridMessenger;
 
 namespace Chirp
 {

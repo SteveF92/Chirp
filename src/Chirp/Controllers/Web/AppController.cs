@@ -1,7 +1,6 @@
 using AutoMapper;
 using Chirp.Database;
 using Chirp.Models;
-using Chirp.Services;
 using Chirp.ViewModels;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
