@@ -128,7 +128,7 @@ namespace Chirp.Controllers.Api
                 {
                     await m_signInManager.SignInAsync(user, isPersistent: false);
                     m_logger.LogInformation(3, "User changed their password successfully.");
-                    return Json(new { url = "myaccount" });
+                    return Json(new { url = "myaccount?actionTaken=PasswordChanged" });
                 }
                 return Json(new { error = "Current Password is incorrect." });
             }

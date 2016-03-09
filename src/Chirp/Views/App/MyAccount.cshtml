@@ -1,13 +1,15 @@
-﻿@model Chirp.ViewModels.ChirpUserViewModel
-
+﻿@model Chirp.PageModels.AccountSettingsPageModel
 @{
     ViewBag.Title = "Account Settings";
 }
 
 <div class="row">
     <div class="col-md-12">
-        <h1>Account Settings - @Model.UserName</h1>
-        <h2></h2>
+        <h1>Account Settings - @Model.UserVM.UserName</h1>
+        @if (!String.IsNullOrWhiteSpace(Model.SuccessMessage))
+        {
+            <div class="alert alert-success" role="alert">@Model.SuccessMessage</div>
+        }
         <br/>
         <table class="table">
             <tr>
@@ -15,10 +17,10 @@
                     Email
                 </td>
                 <td>
-                    @Model.Email
+                    @Model.UserVM.Email
                 </td>
 
-                @if (Model.EmailConfirmed)
+                @if (Model.UserVM.EmailConfirmed)
                 {
                     <td>
                         Confirmed
