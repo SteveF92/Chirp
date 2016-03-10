@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using Chirp.Models;
 using Microsoft.AspNet.Authorization;
+using Chirp.PageModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,14 +28,17 @@ namespace Chirp.Controllers.Web
             m_userManager = a_userManager;
         }
 
-        public IActionResult Login()
+        public IActionResult Login(string email)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "App");
             }
 
-            return View();
+            LoginPageModel pageModel = new LoginPageModel();
+            pageModel.SetMessage(email);
+
+            return View(pageModel);
         }
 
         public IActionResult Signup()
@@ -71,6 +75,19 @@ namespace Chirp.Controllers.Web
         public IActionResult ChangePassword()
         {
             return View();
+        }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost()]
+        public IActionResult SendResetPasswordEmail(ForgotPasswordViewModel vm)
+        {
+            Response.StatusCode = (int)HttpStatusCode.SeeOther;
+
+            return RedirectToAction("Login", "Auth", new { email = vm.Email });
         }
     }
 }
