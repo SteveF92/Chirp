@@ -80,8 +80,17 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
-        public IActionResult ResetPassword(string userId, string code)
+        public async Task<IActionResult> ResetPassword(string userId, string code)
         {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            var user = await m_userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return View("Error");
+            }
             return View();
         }
 
