@@ -91,7 +91,14 @@ namespace Chirp.Controllers.Web
             {
                 return View("Error");
             }
-            return View();
+
+            var pageModel = new ResetPasswordPageModel()
+            {
+                Email = user.Email,
+                Code = code
+            };
+
+            return View(pageModel);
         }
 
         public IActionResult ForgotPassword()

@@ -134,5 +134,29 @@ namespace Chirp.Controllers.Api
             }
             return Json(new { error = "Unknown Error." });
         }
+
+        //
+        // POST: /Account/ResetPassword
+        [HttpPost("ResetPassword")]
+        [AllowAnonymous]
+        public async Task<JsonResult> ResetPassword([FromBody]ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { url = "/" });
+            }
+            var user = await m_userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return Json(new { url = "/" });
+            }
+            var result = await m_userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return Json(new { url = "/" });
+            }
+            return Json(new { url = "/" });
+        }
     }
 }
