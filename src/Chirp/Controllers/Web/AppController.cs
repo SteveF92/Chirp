@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Net;
+using Chirp.PageModels;
 
 namespace Chirp.Controllers.Web
 {
@@ -61,11 +62,16 @@ namespace Chirp.Controllers.Web
         }
 
         [Authorize]
-        public async Task<IActionResult> MyAccount()
+        public async Task<IActionResult> MyAccount(string actionTaken)
         {
             var user = await m_userManager.FindByIdAsync(User.GetUserId());
             var userViewModel = Mapper.Map<ChirpUserViewModel>(user);
-            return View(userViewModel);
+
+            AccountSettingsPageModel pageModel = new AccountSettingsPageModel();
+            pageModel.SetMessage(actionTaken);
+            pageModel.UserVM = userViewModel;
+
+            return View(pageModel);
         }
     }
 }

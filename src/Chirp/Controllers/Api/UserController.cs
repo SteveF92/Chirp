@@ -128,11 +128,35 @@ namespace Chirp.Controllers.Api
                 {
                     await m_signInManager.SignInAsync(user, isPersistent: false);
                     m_logger.LogInformation(3, "User changed their password successfully.");
-                    return Json(new { url = "myaccount" });
+                    return Json(new { url = "myaccount?actionTaken=PasswordChanged" });
                 }
                 return Json(new { error = "Current Password is incorrect." });
             }
             return Json(new { error = "Unknown Error." });
+        }
+
+        //
+        // POST: /Account/ResetPassword
+        [HttpPost("ResetPassword")]
+        [AllowAnonymous]
+        public async Task<JsonResult> ResetPassword([FromBody]ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { url = "/" });
+            }
+            var user = await m_userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return Json(new { url = "/" });
+            }
+            var result = await m_userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return Json(new { url = "/" });
+            }
+            return Json(new { url = "/PasswordReset" });
         }
     }
 }
