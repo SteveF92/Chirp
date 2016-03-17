@@ -60,6 +60,12 @@ namespace Chirp.Controllers.Web
         }
 
         [AllowAnonymous]
+        public IActionResult PasswordReset()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         public async Task<IActionResult> EmailConfirmed(string userId, string code)
         {
             if (userId == null || code == null)

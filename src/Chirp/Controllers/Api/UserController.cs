@@ -156,7 +156,7 @@ namespace Chirp.Controllers.Api
             {
                 return Json(new { url = "/" });
             }
-            return Json(new { url = "/" });
+            return Json(new { url = "/PasswordReset" });
         }
     }
 }
