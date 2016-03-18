@@ -8,12 +8,20 @@
     function userController($http, $scope, chirpPostHub) {
         var vm = this;
         vm.user = {};
-        vm.pageUserName = pageUserName;
+        
         vm.chirpPosts = [];
         vm.errorMessage = "";
         vm.firstLoad = false;
         vm.gotUser = false;
         vm.gotChirps = false;
+
+        $scope.$watch(
+            "vm.pageUserName",
+            function pageReady() {
+                vm.getUser();
+                vm.getChirps();
+            }
+        );
 
         vm.getUser = function () {
             vm.isBusyUser = true;
