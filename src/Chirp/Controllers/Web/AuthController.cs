@@ -124,6 +124,7 @@ namespace Chirp.Controllers.Web
                     var code = await m_userManager.GeneratePasswordResetTokenAsync(user);
                     var callbackUrl = Url.Action("ResetPassword", "Auth", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                     var emailBody = $"Please reset your password by clicking this link: <br/> <a href=\"{callbackUrl}\"> {callbackUrl} </a>";
+
                     await m_emailSender.SendEmailAsync(vm.Email, "Reset Password", emailBody);
 
                     Response.StatusCode = (int)HttpStatusCode.SeeOther;

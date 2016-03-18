@@ -151,10 +151,14 @@ namespace Chirp.Controllers.Api
                 // Don't reveal that the user does not exist
                 return Json(new { url = "/" });
             }
-            var result = await m_userManager.ResetPasswordAsync(user, model.Code, model.Password);
+
+            //ASP.NET is failing to decode a "+" in a URL. Need to manually decode it.
+            string decodedCode = model.Code.Replace(@"&#x2B;", "+");
+
+            var result = await m_userManager.ResetPasswordAsync(user, decodedCode, model.Password);
             if (result.Succeeded)
             {
-                return Json(new { url = "/" });
+                return Json(new { url = "/PasswordReset" });
             }
             return Json(new { url = "/PasswordReset" });
         }
