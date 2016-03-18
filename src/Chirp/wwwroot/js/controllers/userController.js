@@ -59,9 +59,6 @@
             });
         };
 
-        vm.getUser();
-        vm.getChirps();
-
         $scope.$watch("vm.gotChirps", function () {
             if (vm.gotUser === true) {
                 vm.firstLoad = true;
