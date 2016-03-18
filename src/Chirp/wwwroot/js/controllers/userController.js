@@ -11,17 +11,16 @@
         
         vm.chirpPosts = [];
         vm.errorMessage = "";
-        vm.firstLoad = false;
+        vm.pageReady = false;
+
         vm.gotUser = false;
         vm.gotChirps = false;
 
-        $scope.$watch(
-            "vm.pageUserName",
-            function pageReady() {
-                vm.getUser();
-                vm.getChirps();
-            }
-        );
+        vm.init = function (userName) {
+            vm.pageUserName = userName;
+            vm.getUser();
+            vm.getChirps();
+        };
 
         vm.getUser = function () {
             vm.isBusyUser = true;
@@ -61,13 +60,13 @@
 
         $scope.$watch("vm.gotChirps", function () {
             if (vm.gotUser === true) {
-                vm.firstLoad = true;
+                vm.pageReady = true;
             }
         });
 
         $scope.$watch("vm.gotUser", function () {
             if (vm.gotChirps === true) {
-                vm.firstLoad = true;
+                vm.pageReady = true;
             }
         });
 
