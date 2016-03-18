@@ -8,12 +8,19 @@
     function userController($http, $scope, chirpPostHub) {
         var vm = this;
         vm.user = {};
-        vm.pageUserName = pageUserName;
+        
         vm.chirpPosts = [];
         vm.errorMessage = "";
-        vm.firstLoad = false;
+        vm.pageReady = false;
+
         vm.gotUser = false;
         vm.gotChirps = false;
+
+        vm.init = function (userName) {
+            vm.pageUserName = userName;
+            vm.getUser();
+            vm.getChirps();
+        };
 
         vm.getUser = function () {
             vm.isBusyUser = true;
@@ -51,18 +58,15 @@
             });
         };
 
-        vm.getUser();
-        vm.getChirps();
-
         $scope.$watch("vm.gotChirps", function () {
             if (vm.gotUser === true) {
-                vm.firstLoad = true;
+                vm.pageReady = true;
             }
         });
 
         $scope.$watch("vm.gotUser", function () {
             if (vm.gotChirps === true) {
-                vm.firstLoad = true;
+                vm.pageReady = true;
             }
         });
 

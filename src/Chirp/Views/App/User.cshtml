@@ -2,9 +2,7 @@
 @{
     ViewBag.Title = $"{Model.UserName} - User Page";
 }
-<script>
-    var pageUserName = "@Model.UserName";
-</script>
+
 @section Scripts {
     <script src="~/lib/signalr/jquery.signalR.min.js"></script>
     <script src="~/signalr/hubs"></script>
@@ -12,12 +10,12 @@
     <script src="~/js/chirpSignalR.js"></script>
 }
 
-<div ng-controller="userController as vm">
-    <div ng-show="vm.firstLoad">
+<div ng-controller="userController as vm" ng-init="vm.init('@Model.UserName')">
+    <div ng-show="vm.pageReady">
         <h1 ng-bind-template="User: {{vm.user.userName}}"></h1>
         <h5 ng-bind-template="Email: {{vm.user.email}}"></h5>
     </div>
-    <div ng-show="vm.firstLoad" ng-cloak>
+    <div ng-show="vm.pageReady" ng-cloak>
         <h3>Chirps</h3>
         <div id="post-stream" class="container-fluid" ng-show="vm.hasChirps()">
             <div class="post" ng-repeat="chirpPost in vm.chirpPosts | orderBy:'created_at':true" ng-class-odd="'odd'" ng-class-even="'even'">
