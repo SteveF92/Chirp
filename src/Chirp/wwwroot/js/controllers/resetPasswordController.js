@@ -5,12 +5,20 @@
     angular.module("app-chirp")
         .controller("resetPasswordController", resetPasswordController);
 
-    function resetPasswordController($http, $window) {
+    function resetPasswordController($scope, $http, $window) {
         var vm = this;
         vm.isBusy = false;
+        vm.pageReady = false;
+
         vm.credentials = {
-            email: pageEmail,
-            code: pageCode
+            email: "",
+            code: ""
+        };
+
+        vm.init = function (email, code) {
+            vm.credentials.email = email;
+            vm.credentials.code = code;
+            vm.pageReady = true;
         };
 
         vm.resetPassword = function () {
