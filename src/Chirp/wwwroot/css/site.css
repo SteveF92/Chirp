@@ -60,6 +60,18 @@ input[type=text], input[type=password], textarea {
 	height:100%; width:auto;
 }
 
+.chirp-post-profile-picture{
+	float:left;
+    margin-right:10px;
+}
+
+.chirp-post-text{
+}
+
+.chirp-post-metadata{
+    position:relative;
+    bottom:0;
+}
 
 #chirp-form {
 	background-color: #68d8f2;
