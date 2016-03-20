@@ -36,7 +36,16 @@ namespace Chirp.Controllers.Api
             }
 
             string awsURL = @"https://s3.amazonaws.com/chirp-profile-pictures/";
-            string fileName = user.Id + ".jpg";
+            string fileName = "";
+            if (user.HasProfilePicture)
+            {
+                fileName = user.Id + ".jpg";
+            }
+            else
+            {
+                fileName = "default.png";
+            }
+            
             return Redirect(awsURL + fileName);
         }
     }
