@@ -86,6 +86,11 @@ namespace Chirp.Controllers.Web
             return View();
         }
 
+        public IActionResult ChangeProfilePicture()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> ResetPassword(string userId, string code)
         {
             if (userId == null || code == null)
