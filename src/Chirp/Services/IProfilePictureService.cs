@@ -7,6 +7,6 @@ namespace Chirp.Services
 {
     public interface IProfilePictureService
     {
-        void UploadProfilePicture(string a_userId, byte[] a_data);
+        void UploadProfilePicture(string a_userId, string a_data);
     }
 }

@@ -67,15 +67,18 @@ namespace Chirp.Controllers.Api
             var stream = file.OpenReadStream();
 
 
-            byte[] contentAsByteArray;
+            string contentAsString;
             using (var reader = new StreamReader(file.OpenReadStream()))
             {
-                string contentAsString = reader.ReadToEnd();
-                contentAsByteArray = GetBytes(contentAsString);
+                contentAsString = reader.ReadToEnd();
             }
+            string key = user.Id + ".jpg";
+            m_profilePictureService.UploadProfilePicture(key, contentAsString);
 
-            m_profilePictureService.UploadProfilePicture(user.Id, contentAsByteArray);
-            return RedirectToAction("ChangeProfilePicture");
+            user.HasProfilePicture = true;
+            await m_userManager.UpdateAsync(user);
+            
+            return RedirectToAction("ChangeProfilePicture", "Auth");
         }
 
         static byte[] GetBytes(string str)
