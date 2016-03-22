@@ -13,6 +13,10 @@ using System.Net;
 using Chirp.Models;
 using Microsoft.AspNet.Authorization;
 using SendGridMessenger;
+using Microsoft.AspNet.Http;
+using Microsoft.Net.Http.Headers;
+using System.IO;
+using Chirp.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,9 +25,12 @@ namespace Chirp.Controllers.Api
     public class ImageController : Controller
     {
         private UserManager<ChirpUser> m_userManager;
-        public ImageController(UserManager<ChirpUser> a_userManager)
+        private IProfilePictureService m_profilePictureService;
+
+        public ImageController(UserManager<ChirpUser> a_userManager, IProfilePictureService a_profilePictureService)
         {
             m_userManager = a_userManager;
+            m_profilePictureService = a_profilePictureService;
         }
 
         [Route("image/profilepicture/{userName}")]
@@ -47,6 +54,35 @@ namespace Chirp.Controllers.Api
             }
             
             return Redirect(awsURL + fileName);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProfilePicture(ICollection<IFormFile> files)
+        {
+            ChirpUser user = await m_userManager.FindByNameAsync(User.Identity.Name);
+
+            var file = files.First();
+
+            var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var stream = file.OpenReadStream();
+
+
+            byte[] contentAsByteArray;
+            using (var reader = new StreamReader(file.OpenReadStream()))
+            {
+                string contentAsString = reader.ReadToEnd();
+                contentAsByteArray = GetBytes(contentAsString);
+            }
+
+            m_profilePictureService.UploadProfilePicture(user.Id, contentAsByteArray);
+            return RedirectToAction("ChangeProfilePicture");
+        }
+
+        static byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
         }
     }
 }

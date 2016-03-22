@@ -20,6 +20,7 @@ using Microsoft.AspNet.Authentication.Cookies;
 using System.Net;
 using Chirp.Models;
 using SendGridMessenger;
+using Chirp.Services;
 
 namespace Chirp
 {
@@ -107,6 +108,7 @@ namespace Chirp
 
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<IProfilePictureService, S3ProfilePictureService>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
         }

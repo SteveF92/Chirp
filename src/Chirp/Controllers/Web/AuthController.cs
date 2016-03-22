@@ -14,6 +14,7 @@ using Chirp.Models;
 using Microsoft.AspNet.Authorization;
 using Chirp.PageModels;
 using SendGridMessenger;
+using Microsoft.AspNet.Http;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
