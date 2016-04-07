@@ -20,7 +20,7 @@
     "Microsoft.AspNet.SignalR.Server": "3.0.0-rc1-final",
     "Sendgrid": "6.3.4",
     "sendgridmessenger": "1.0.0",
-    "AWSSDK.S3": "3.1.4"
+    "S3ProfilePictureService": "1.0.0-*"
   },
 
   "commands": {

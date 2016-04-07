@@ -16,7 +16,7 @@ using SendGridMessenger;
 using Microsoft.AspNet.Http;
 using Microsoft.Net.Http.Headers;
 using System.IO;
-using Chirp.Services;
+using S3Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

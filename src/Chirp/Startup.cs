@@ -20,7 +20,7 @@ using Microsoft.AspNet.Authentication.Cookies;
 using System.Net;
 using Chirp.Models;
 using SendGridMessenger;
-using Chirp.Services;
+using S3Services;
 
 namespace Chirp
 {
@@ -96,9 +96,9 @@ namespace Chirp
 
             services.AddOptions();
 
-            services.Configure<AuthMessageSenderOptions>(Configuration);
+            // Configure Options for SendGrid
 
-            // Configure MyOptions using code
+            services.Configure<AuthMessageSenderOptions>(Configuration);
             services.Configure<AuthMessageSenderOptions>(myOptions =>
             {
                 myOptions.SendGridUser = Configuration["SendGrid:SendGridUser"];
@@ -108,9 +108,17 @@ namespace Chirp
 
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<IProfilePictureService, S3ProfilePictureService>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
+            services.Configure<S3ProfilePictureServiceOptions>(Configuration);
+            services.Configure<S3ProfilePictureServiceOptions>(myOptions =>
+            {
+                myOptions.AWSProfileName = Configuration["S3ProfilePicture:AWSProfileName"];
+                myOptions.Bucket = Configuration["S3ProfilePicture:Bucket"];
+            });
+
+            services.AddTransient<IProfilePictureService, S3ProfilePictureService>();
+            services.Configure<S3ProfilePictureServiceOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
