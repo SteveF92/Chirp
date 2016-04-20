@@ -64,16 +64,10 @@ namespace Chirp.Controllers.Api
             var file = files.First();
 
             var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-            var stream = file.OpenReadStream();
 
-
-            string contentAsString;
-            using (var reader = new StreamReader(file.OpenReadStream()))
-            {
-                contentAsString = reader.ReadToEnd();
-            }
+            Stream stream = file.OpenReadStream();
             string key = user.Id + ".jpg";
-            m_profilePictureService.UploadProfilePicture(key, contentAsString);
+            m_profilePictureService.UploadProfilePicture(key, stream);
 
             user.HasProfilePicture = true;
             await m_userManager.UpdateAsync(user);
