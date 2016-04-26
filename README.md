@@ -13,8 +13,9 @@ Other technologies in use include:
 * BootStrap
 * SignalR
 
-* You can view this site at:
-    * http://chirpchirp.azurewebsites.net/
+You can view this site at:
+
+* http://chirpchirp.azurewebsites.net/
 ### Necessary Downloads ###
 
 * Visual Studio 2015
