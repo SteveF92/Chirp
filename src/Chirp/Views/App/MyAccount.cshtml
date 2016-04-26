@@ -48,6 +48,17 @@
                     <a asp-controller="Auth" asp-action="ChangePassword">Change Password</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Profile Picture
+                </td>
+                <td>
+                    <img src="image/profilepicture/@User.Identity.Name" class="profilepicture" alt="Profile Picture" />
+                </td>
+                <td>
+                    <a asp-controller="Auth" asp-action="ChangeProfilePicture">Change Profile Picture</a>
+                </td>
+            </tr>
         </table>
     </div>
 </div>

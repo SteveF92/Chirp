@@ -1,6 +1,11 @@
-﻿<p ng-bind="chirpPost.message"></p>
-<small>
-    Posted by
-    <a href="/user/{{chirpPost.user.userName}}" ng-bind-template="@{{chirpPost.user.userName}}"> </a>
-</small>
-<small class="pull-right" ng-bind="chirpPost.postTime | date:'medium'"></small>
+﻿<img src="/image/ProfilePicture/{{chirpPost.user.userName}}" class="profilepicture chirp-post-profile-picture" alt="Profile Picture" />
+
+<div class="chirp-post-metadata">
+    <small>
+        <a href="/user/{{chirpPost.user.userName}}" ng-bind-template="@{{chirpPost.user.userName}}"> </a>
+    </small>
+    <small class="pull-right" ng-bind="chirpPost.postTime | date:'medium'"></small>
+</div>
+<div class="chirp-post-text">
+    <p ng-bind="chirpPost.message"></p>
+</div>

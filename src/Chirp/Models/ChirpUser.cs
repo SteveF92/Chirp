@@ -6,5 +6,7 @@ namespace Chirp.Models
     public class ChirpUser : IdentityUser
     {
         public List<ChirpPost> ChirpPosts;
+
+        public bool HasProfilePicture { get; set; }
     }
 }

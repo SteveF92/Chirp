@@ -8,9 +8,10 @@ using Chirp.Database;
 namespace Chirp.Migrations
 {
     [DbContext(typeof(ChirpContext))]
-    partial class ChirpContextModelSnapshot : ModelSnapshot
+    [Migration("20160320093307_ProfilePicture")]
+    partial class ProfilePicture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348");
