@@ -3,6 +3,16 @@
 ###Chirp###
 Chirp is an Twitter clone written using ASP.NET 5.
 
+Other technologies in use include:
+
+* MVC 6
+* ASP.NET Identity
+* Entity Framework 7
+* PostgreSQL
+* AngularJS
+* BootStrap
+* SignalR
+
 * You can view this site at:
     * http://chirpchirp.azurewebsites.net/
 ### Necessary Downloads ###
