@@ -1,15 +1,14 @@
 {
   "version": "1.0.0-*",
-  "description": "S3ProfilePictureService Class Library",
+  "description": "SendGridMessenger Class Library",
   "authors": [ "elite" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
   "frameworks": {
-    "net451": { }
+    "dnx451": { }
   },
   "dependencies": {
-    "AWSSDK.S3": "3.1.4",
     "Microsoft.Extensions.OptionsModel": "1.0.0-rc1-final",
     "Sendgrid": "6.3.4"
   }

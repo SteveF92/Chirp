@@ -18,9 +18,8 @@
     "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
     "Microsoft.AspNet.SignalR.Server": "3.0.0-rc1-final",
-    "Sendgrid": "6.3.4",
-    "sendgridmessenger": "1.0.0",
-    "S3ProfilePictureService": "1.0.0-*"
+    "S3ProfilePictureService": "1.0.0-*",
+    "SendGridMessenger": "1.0.0-*"
   },
 
   "commands": {
